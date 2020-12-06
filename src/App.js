@@ -24,7 +24,7 @@ function App() {
         <Navbar />
 
         <Route path = "/homepage" component = { Homepage } />
-        <ProtectedRoute path="/ItemsList" component={ItemsList} isAuth={localStorage.length>0}/>
+        <Route path="/ItemsList" component={ItemsList} />
         <ProtectedRoute path="/addItems" component={AddItems} isAuth={localStorage.length>0}/>
         <Route path = "/addUser"  component = { Signup } />
         <Route path = "/login" component = { Login } />
