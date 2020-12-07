@@ -13,11 +13,13 @@ import Login from "./components/Login";
 import Signup from "./components/Signup";
 import EditItems from "./components/edit";
 import Homepage2 from "./components/Homepage2.js";
+import Profile from "./components/Profile.js";
 
 function App() {
   return (
     <Router className="container">
       <div>
+        <Route path="/Profile" component={Profile} />
         <Route path="/homepage2" component={Homepage2} />
         <Route path="/homepage" component={Homepage} />
         <Route path="/ItemsList" component={ItemsList} />
