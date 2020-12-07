@@ -66,7 +66,8 @@ router.route('/').get((req, res) => {
     //creat and send a token
     
       const token = jwt.sign({_id: user._id}, process.env.JWT_SECRET );
-     res.header('addUser-token',token).send(token);
+     res.send({token :token,user:user});
+  
      //console.log(res.header)
        });
   

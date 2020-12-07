@@ -1,5 +1,6 @@
 const router = require('express').Router();
 const AddItems = require('../models/addItems.model');
+// const User = require('../models/user.model');
 const verfiy = require('./verifyToken')
 const { requireAuth } = require('./verifyToken')
 //AddItems is the schema
@@ -15,6 +16,7 @@ router.route('/').get( (req, res) => {
 
 //POST(CREATE) new item
 router.route('/add').post((req, res) => {
+  const userName = req.body.userName;
   const itemName = req.body.itemName;
   const category = req.body.category;
   const description = req.body.description;
@@ -22,6 +24,7 @@ router.route('/add').post((req, res) => {
   const type = req.body.type;
 
   const newItem = new AddItems ({
+    userName,
     itemName,
     category,
     description,
