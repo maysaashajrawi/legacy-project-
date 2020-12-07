@@ -3,6 +3,7 @@ import { BrowserRouter as Router, Route } from "react-router-dom";
 import 'bootstrap/dist/css/bootstrap.min.css';
 import 'mdbreact/dist/css/mdb.css';
 import ProtectedRoute from './components/ProtectedRoute';
+import Profile from './components/Profile';
 import './App.css';
 
 import Profile from './components/Profile';
@@ -30,7 +31,8 @@ function App() {
         <Route path = "/login" component = { Login } />
         <Route path = "/edit/:id" component = { EditItems }/>
         <Route path = "/logout" component = { Login } />
-        <Route path="/profile" component={Profile}/>
+        <Route path = "/profile" component = { Profile } />
+
     
       </div>
     </Router>
