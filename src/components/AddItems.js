@@ -61,6 +61,7 @@ import Footer from './Footer';
   onSubmit(e) {
     e.preventDefault();
     const item = {
+      userName:localStorage.getItem('username'),
       itemName: this.state.itemName,
       category: this.state.category,
       description: this.state.description,
