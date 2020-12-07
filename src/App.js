@@ -5,7 +5,7 @@ import 'mdbreact/dist/css/mdb.css';
 import ProtectedRoute from './components/ProtectedRoute';
 import './App.css';
 
-
+import Profile from './components/Profile';
 import Homepage from './components/Homepage';
 import Navbar from './components/Navbar';
 import AddItems from './components/AddItems';
@@ -25,11 +25,12 @@ function App() {
 
         <Route path = "/homepage" component = { Homepage } />
         <Route path="/ItemsList" component={ItemsList} />
-        <ProtectedRoute path="/addItems" component={AddItems} isAuth={localStorage.length>0}/>
+        <Route path="/addItems" component={AddItems} />
         <Route path = "/addUser"  component = { Signup } />
         <Route path = "/login" component = { Login } />
         <Route path = "/edit/:id" component = { EditItems }/>
         <Route path = "/logout" component = { Login } />
+        <Route path="/profile" component={Profile}/>
     
       </div>
     </Router>
