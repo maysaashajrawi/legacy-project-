@@ -1,3 +1,4 @@
+
 import React from 'react';
 import axios from "axios";
 import { storage } from "./firebase.js";
@@ -208,15 +209,3 @@ handleUpload () {
     
     export default withRouter(Profile)
          
-
-
-
-
-
-
-
-
-
-
-
-
