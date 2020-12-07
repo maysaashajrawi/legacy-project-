@@ -25,7 +25,7 @@ function App() {
 
         <Route path = "/homepage" component = { Homepage } />
         <Route path="/ItemsList" component={ItemsList} />
-        <ProtectedRoute path="/addItems" component={AddItems} isAuth={localStorage.length>0}/>
+        <Route path="/addItems" component={AddItems} />
         <Route path = "/addUser"  component = { Signup } />
         <Route path = "/login" component = { Login } />
         <Route path = "/edit/:id" component = { EditItems }/>
