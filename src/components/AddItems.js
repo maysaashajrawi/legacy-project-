@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import axios from "axios";
-import { Link ,withRouter } from "react-router-dom" ;
+import { withRouter } from "react-router-dom" ;
 import Footer from './Footer';
 
 
@@ -61,6 +61,7 @@ import Footer from './Footer';
   onSubmit(e) {
     e.preventDefault();
     const item = {
+      userName:localStorage.getItem('username'),
       itemName: this.state.itemName,
       category: this.state.category,
       description: this.state.description,
