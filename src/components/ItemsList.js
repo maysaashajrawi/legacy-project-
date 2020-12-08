@@ -84,6 +84,7 @@ class ItemsList extends Component {
             <div className = "container text-center border border-light p-9">
                 <h2>Clothing</h2>
                 <input name="search" className="form-control" onChange={e => this.onSearch(e)} value={this.state.SearchString}  placeholder="Search for item Name"/>
+                
                 <table className = "table">
                 <thead className = "thead">
                     <tr>

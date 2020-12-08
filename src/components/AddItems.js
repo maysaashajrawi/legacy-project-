@@ -1,7 +1,8 @@
 import React, { Component } from 'react';
 import axios from "axios";
-import { Link ,withRouter } from "react-router-dom" ;
+import { withRouter } from "react-router-dom" ;
 import Footer from './Footer';
+import { storage } from "./firebase.js";
 
 
  class AddItems extends Component {
@@ -13,15 +14,17 @@ import Footer from './Footer';
     this.onChangeCategory = this.onChangeCategory.bind(this);
     this.onChangeDescription = this.onChangeDescription.bind(this);
     this.onSubmit = this.onSubmit.bind(this);
-    this.onChangeimg = this.onChangeimg.bind(this);
+    
     this.onChangetype = this.onChangetype.bind(this);
 
     this.state = {
       itemName: "",
       category : "Women",
       description: "",
-      image : "",
-      type:"Jacket"
+      type:"Jacket",
+      image:null,
+      url :'',
+      progress:0,
     }
   }
 
@@ -52,20 +55,53 @@ import Footer from './Footer';
       description: e.target.value
     });
   }
-  onChangeimg(e) {
-    this.setState({
-      image : e.target.value
-    });
-  }
+  // it addes the values of the input fileds in the states so we add the image from fire base 
+  handleChangeImage(e) {
+    if (e.target.files[0]) {
+        this.setState({
+        image: e.target.files[0]
+        })
+    }
+  
+}
+  // it handles the upload of the picture in the firbase
+  handleUpload () {
+    var uploadTask = storage.ref(`images/${this.state.image.name}`).put(this.state.image);
+      uploadTask.on(
+        "state_changed",
+        snapshot => {
+          var progress = Math.round(
+            (snapshot.bytesTransferred / snapshot.totalBytes) * 100
+          );
+          this.setState({
+            progress:progress})
+          },
+          error => {
+          console.log(error);
+         },
+          () => {
+            storage
+            .ref("images")
+            .child(this.state.image.name)
+            .getDownloadURL()
+            .then(url => {
+              this.setState({
+                url : url
+            })
+            });
+            }
+            );
+         }
 
   onSubmit(e) {
     e.preventDefault();
     const item = {
+      userName:localStorage.getItem('username'),
       itemName: this.state.itemName,
       category: this.state.category,
       description: this.state.description,
       type:this.state.type,
-      image:this.state.image
+      
     }
 
     console.log(item);
@@ -155,15 +191,13 @@ import Footer from './Footer';
                 <br />
                 
                 <div className = "col">
-                    <label>Add Image as URL</label>
-                    <input 
-                      type = "text" 
-                      required="true"
-                      className = "form-control" 
-                      value = {this.state.image} 
-                      onChange = {this.onChangeimg}/>
-                  </div>  
-
+                            <label>Image</label>
+                           <div  id='image' > <img src={this.state.url || "http://via.placeholder.com/50 50"} 
+                            alt="firebase"  /></div> 
+                           <input  type="file" onChange={this.handleChangeImage.bind(this)} className="btn btn-deep-orange darken-4" />
+                           <button  onClick={this.handleUpload.bind(this)} className="btn btn-deep-orange darken-4">Upload</button>
+                           </div>
+                            <br />
                   <br />
 
                 <div>
