@@ -1,7 +1,20 @@
 import React, { Component } from "react";
 import { Link } from "react-router-dom";
+import "font-awesome/css/font-awesome.min.css";
+// import AddItems from "./AddItems";
 
 export default class Navbar extends Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      counter: 0,
+    };
+  }
+
+  increment = () => {
+    this.setState({ counter: this.state.counter + 1 });
+  };
+
   render() {
     return (
       <div>
@@ -35,6 +48,16 @@ export default class Navbar extends Component {
                 </Link>
               </li> */}
             </ul>
+
+            <a>
+              <i
+                class="fa fa-heart"
+                aria-hidden="true"
+                onClick={this.increment}
+              >
+                <h3>{this.state.counter}</h3>
+              </i>
+            </a>
           </div>
         </nav>
       </div>
@@ -42,7 +65,7 @@ export default class Navbar extends Component {
   }
 }
 
-function logout() {
-  window.localStorage.clear();
-  window.location = "/Homepage";
-}
+// function logout() {
+//   window.localStorage.clear();
+//   window.location = "/Homepage";
+// }

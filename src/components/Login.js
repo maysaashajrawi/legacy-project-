@@ -1,6 +1,7 @@
 import React, { Component } from "react";
 import axios from "axios";
 import Footer from "./Footer";
+// import Navbar_Login from "./Navbar_Login";
 
 export default class Login extends Component {
   constructor(props) {
@@ -48,6 +49,7 @@ export default class Login extends Component {
   render() {
     return (
       <div>
+        {/* <Navbar_Login /> */}
         <br />
         <div className="container">
           <form

@@ -3,6 +3,7 @@ import axios from "axios";
 import { storage } from "./firebase.js";
 import { withRouter } from "react-router-dom";
 import Footer from "./Footer";
+import Navbar_Login from "./Navbar_Login";
 
 class Profile extends React.Component {
   constructor(props) {
@@ -120,6 +121,7 @@ class Profile extends React.Component {
   render() {
     return (
       <div>
+        <Navbar_Login />;
         <br />
         <div className="container">
           <form
