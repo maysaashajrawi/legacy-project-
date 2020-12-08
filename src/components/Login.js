@@ -48,7 +48,7 @@ export default class Login extends Component {
        localStorage.setItem('username', response.data.user.username);
       //  console.log(response.data.user.phone)
 
-    // location = '/AddItems'
+    window.location = '/AddItems'
         })
         .catch(err =>alert("username or password is incorrect") );         
     }

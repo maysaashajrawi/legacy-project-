@@ -4,9 +4,9 @@ const AddItems = require('../models/addItems.model');
 const verfiy = require('./verifyToken')
 const { requireAuth } = require('./verifyToken')
 //AddItems is the schema
-//CRUD Operations:
+//CRUD Operations:   (create -read-update-delete)
 // 
-//GET all items
+//GET all items   retreva all the data and the schema structure from the mongoo db by .find method 
 router.route('/').get( (req, res) => {
   AddItems.find() 
   .then(items => res.json(items))
@@ -15,13 +15,15 @@ router.route('/').get( (req, res) => {
 });
 
 //POST(CREATE) new item
-router.route('/add').post((req, res) => {
+// in side the post request i will create items and i get the data from request.body --> . the name of the attribute in the schema 
+router.route('/addItems').post((req, res) => {
   const userName = req.body.userName;
   const itemName = req.body.itemName;
   const category = req.body.category;
   const description = req.body.description;
-  const image=req.body.image;
+  const image=req.body.image; 
   const type = req.body.type;
+
 
   const newItem = new AddItems ({
     userName,
@@ -31,13 +33,13 @@ router.route('/add').post((req, res) => {
     image,
     type
   });
-  
+    // saving the new item in the data base by .save method 
   newItem.save()
   .then(() => res.json("Item Added!"))
   .catch(err => res.status(400).json("Error: " + err));
 });
 
-//GET item by ID
+//GET item by ID  becouse i want to delete and update this items  /we will use find by id method and how ? by get the id by (req.params.id)
 router.route("/:id").get((req, res) => {
   AddItems.findById(req.params.id)
   .then(items => res.json(items))
