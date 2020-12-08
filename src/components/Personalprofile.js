@@ -68,11 +68,12 @@ class Personalprofile extends React.Component {
  usersList() {
   let listedusers = (this.state.Data.length >0)? this.state.data :this.state.users;
 
+//{this.state.Data.filter(elet=> this.state.userid=== elet.userId ).map((ele,index) 
   return listedusers.map(currentUser => {
-    return <Profileuser user= { currentUser } deleteUser = { this.deleteUser} key = { currentUser._id }/>; 
+    return <Profileuser user= { currentUser } deleteUser = { this.deleteUser} key = { currentUser._id }/>;
+    
   })
 } 
-
 
 
 

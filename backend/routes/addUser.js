@@ -80,7 +80,7 @@ const newUser = new AddUser({username:username,password:hashedPassword, phone: p
 
 
 //GET users by ID  becouse i want to delete and update this user / we will use find by id method and how ? by get the id by (req.params.id)
-router.route("/:id").get((req, res) => {
+router.route("/getuser/:id").get((req, res) => {
   AddUser.findById(req.params.id)
   .then(users => res.json(users))
   .catch(err => res.status(400).json("Error: " + err));
