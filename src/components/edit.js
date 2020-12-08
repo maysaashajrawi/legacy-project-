@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import axios from "axios";
+import { storage } from "./firebase.js";
 
 
 
@@ -19,11 +20,54 @@ export default class EditItems extends Component {
       itemName: "",
       category : "Women",
       description: "",
-      image : "",
       type:"Jacket",
+      image:null,
+      url :'',
+      progress:0,
     
     }
   }
+
+
+
+
+  // it addes the values of the input fileds in the states
+  handleChangeImage(e) {
+    if (e.target.files[0]) {
+        this.setState({
+        image: e.target.files[0]
+        })
+    }
+  
+}
+// it handles the upload of the picture in the firbase
+handleUpload () {
+  var uploadTask = storage.ref(`images/${this.state.image.name}`).put(this.state.image);
+    uploadTask.on(
+      "state_changed",
+      snapshot => {
+        var progress = Math.round(
+          (snapshot.bytesTransferred / snapshot.totalBytes) * 100
+        );
+        this.setState({
+          progress:progress})
+        },
+        error => {
+        console.log(error);
+       },
+        () => {
+          storage
+          .ref("images")
+          .child(this.state.image.name)
+          .getDownloadURL()
+          .then(url => {
+            this.setState({
+              url : url
+          })
+          });
+          }
+          );
+       }
 
 
   componentDidMount() {
@@ -166,18 +210,16 @@ export default class EditItems extends Component {
                 </div>
 
                 <br />
-                
-         <div >
-         <div className = "addimg">
-            <label>Add Image URL</label>
-            <input 
-              type = "text" 
-              className = "form-control"
-              value = {this.state.image} 
-              onChange = {this.onChangeimg}/>
-          </div>
+                <div className = "col">
+                            <label>Image</label>
+                           <div  id='image' > <img src={this.state.url || "http://via.placeholder.com/50 50"} 
+                            alt="firebase"  /></div> 
+                           <input  type="file" onChange={this.handleChangeImage.bind(this)} className="btn btn-deep-orange darken-4" />
+                           <button  onClick={this.handleUpload.bind(this)} className="btn btn-deep-orange darken-4">Upload</button>
+                           </div>
+                            <br />
         
-</div>   
+        
 
                 <div>
                 <button type="submit" value = "Submit" className="btn btn-dark">Edit</button>
