@@ -43,9 +43,10 @@ export default class Login extends Component {
         axios.post("http://localhost:3000/addUser/login", user)
         .then(response =>{
       // console.log (response)
-      console.log(response)
+      // console.log(response.user.data)
        localStorage.setItem('token', response.data.token);
        localStorage.setItem('username', response.data.user.username);
+      //  console.log(response.data.user.phone)
 
     // location = '/AddItems'
         })
@@ -79,7 +80,7 @@ export default class Login extends Component {
                 <input type='submit' value='Log In' className="btn btn-deep-orange darken-4"/>
                 <br></br>
                 <br></br>
-                <p>Don't have an account? <a href='/addUser'> Sign Up</a></p>
+                <p>Don't have an account? <a href='/addUser/adduser'> Sign Up</a></p>
                 </form>
              </div>
              <Footer />
