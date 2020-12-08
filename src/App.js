@@ -3,8 +3,8 @@ import React from 'react';
 import { BrowserRouter as Router, Route } from "react-router-dom";
 import 'bootstrap/dist/css/bootstrap.min.css';
 import 'mdbreact/dist/css/mdb.css';
-// import ProtectedRoute from './components/ProtectedRoute';
-import Profile from './components/Profile';
+
+
 import './App.css';
 import Homepage from './components/Homepage';
 import Navbar from './components/Navbar';
@@ -42,4 +42,3 @@ function App() {
 }
 
 export default App;
-

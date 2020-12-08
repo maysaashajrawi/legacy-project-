@@ -75,7 +75,9 @@ export default class Signup extends Component {
            
             axios.post("http://localhost:3000/addUser/adduser", user)
             .then(res => {
+
             window.location = '/login'
+
 
             })  
            .catch(err => alert('user name or phone number is used') );

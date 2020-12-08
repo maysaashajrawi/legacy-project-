@@ -21,12 +21,38 @@ import { storage } from "./firebase.js";
       itemName: "",
       category : "Women",
       description: "",
-      type:"Jacket",
+       type:"Jacket",
       image:null,
       url :'',
       progress:0,
+      phone:''
+
     }
   }
+
+//mount the user data so we add the username and phone number
+
+componentDidMount() {
+  
+  axios.get("http://localhost:3000/addUser/login")
+  .then(response =>{
+// console.log (response)
+// console.log(response.user.data)
+
+ this.setState({ phone:response.data.user.phone
+
+ })
+
+// location = '/AddItems'
+  })
+  .catch(err =>alert("username or password is incorrect") );         
+}
+    
+
+
+
+
+
 
   //List of category
   //Event Handlers:
@@ -34,6 +60,7 @@ import { storage } from "./firebase.js";
     this.setState({
       itemName: e.target.value
     });
+    console.log(this.state.phone)
   }
 
   onChangeCategory(e) {
