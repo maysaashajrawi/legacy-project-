@@ -23,12 +23,8 @@ export default class Navbar extends Component {
           <li className="navbar-item"onClick={logout}>
           <Link to="/logout" className="nav-link">Log out</Link>
           </li>
-
-          <li className="navbar-item" >
-
-          
-
-          <Link to="/profile" className="nav-link">Profile</Link>
+          <li className="navbar-item">
+          <Link to="/personalprofile" className="nav-link">Profile</Link>
           </li>
         </ul>
         </div>

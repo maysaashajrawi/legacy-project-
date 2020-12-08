@@ -47,7 +47,7 @@ export default class Login extends Component {
        localStorage.setItem('token', response.data.token);
        localStorage.setItem('username', response.data.user.username);
 
-    // location = '/AddItems'
+    window.location = '/AddItems'
         })
         .catch(err =>alert("username or password is incorrect") );         
     }
@@ -79,7 +79,7 @@ export default class Login extends Component {
                 <input type='submit' value='Log In' className="btn btn-deep-orange darken-4"/>
                 <br></br>
                 <br></br>
-                <p>Don't have an account? <a href='/addUser'> Sign Up</a></p>
+                <p>Don't have an account? <a href='/addUser/adduser'> Sign Up</a></p>
                 </form>
              </div>
              <Footer />
