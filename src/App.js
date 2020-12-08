@@ -4,7 +4,7 @@ import { BrowserRouter as Router, Route } from "react-router-dom";
 import 'bootstrap/dist/css/bootstrap.min.css';
 import 'mdbreact/dist/css/mdb.css';
 import ProtectedRoute from './components/ProtectedRoute';
-import Profile from './components/Profile';
+
 import './App.css';
 
 import Profile from './components/Profile';

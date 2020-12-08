@@ -21,9 +21,34 @@ import Footer from './Footer';
       category : "Women",
       description: "",
       image : "",
-      type:"Jacket"
+      type:"Jacket",
+      phone:''
     }
   }
+
+//mount the user data so we add the username and phone number
+
+componentDidMount() {
+  
+  axios.get("http://localhost:3000/addUser/login")
+  .then(response =>{
+// console.log (response)
+// console.log(response.user.data)
+
+ this.setState({ phone:response.data.user.phone
+
+ })
+
+// location = '/AddItems'
+  })
+  .catch(err =>alert("username or password is incorrect") );         
+}
+    
+
+
+
+
+
 
   //List of category
   //Event Handlers:
@@ -31,6 +56,7 @@ import Footer from './Footer';
     this.setState({
       itemName: e.target.value
     });
+    console.log(this.state.phone)
   }
 
   onChangeCategory(e) {

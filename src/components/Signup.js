@@ -75,7 +75,7 @@ export default class Signup extends Component {
             .then(res => {
             // console.log(user);
 
-            window.location = '/login'
+            // window.location = '/login'
 
             })  
              
