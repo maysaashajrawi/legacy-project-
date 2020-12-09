@@ -2,6 +2,11 @@ const router = require('express').Router();
 const AddUser = require('../models/user.model');
 const bcrypt = require('bcrypt');
 const jwt =require('jsonwebtoken');
+
+
+ 
+
+// retreve all the data from mongo db
 router.route('/').get((req, res) => {
       AddUser.find()
     .then(users => res.json(users))
@@ -22,8 +27,12 @@ router.route('/').get((req, res) => {
    const hashedPassword =  await bcrypt.hash(req.body.password, salt)
   const phone = req.body.phone;
   const address = req.body.address;
+  const image= req.body.image;
 //every thing is readdy here we send the data to the server  
-   const newUser = new AddUser({username:username,password:hashedPassword, phone: phone, address:address });
+   
+
+
+const newUser = new AddUser({username:username,password:hashedPassword, phone: phone, address:address, image:image});
    try{
    const saveUser= await newUser.save()
       res.send({saveUser:newUser._id})
@@ -139,3 +148,41 @@ router.route('/').get((req, res) => {
 //       //   res.status(400).send(err);
 //       // }
 //}
+
+
+
+
+
+//GET users by ID  becouse i want to delete and update this user / we will use find by id method and how ? by get the id by (req.params.id)
+// router.route("/getuser/:id").get((req, res) => {
+//   AddUser.findById(req.params.id)
+//   .then(users => res.json(users))
+//   .catch(err => res.status(400).json("Error: " + err));
+// });
+
+// //DELETE user by ID
+// router.route("/:id").delete((req, res) => {
+//   AddUser.findByIdAndDelete(req.params.id)
+//   .then(() => res.json('User is deleted!'))
+//   .catch(err => res.status(400).json("Error: " + err));
+// })
+
+// //UPDATE user by ID
+// router.route("/update/:id", ).post((req, res) => {
+//   AddUser.findById(req.params.id)
+//   .then(users => {
+//     users.username = req.body.username;
+//     users.password= req.body.password;
+//     users.phone = req.body.phone;
+//     users.address= req.body.address;
+//     users.image= req.body.image;
+    
+//     users.save()
+//     .then(() => res.json("Users is updated!"))
+//     .catch(err => res.status(400).json('Error: ' + err));
+//   })
+//     .catch(err => res.status(400).json('Error: ' + err));
+// })
+
+
+//     module.exports= router;

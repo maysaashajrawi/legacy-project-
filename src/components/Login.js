@@ -72,6 +72,7 @@ export default class Login extends Component {
                 <br></br>
                 <p>Don't have an account? <a href='/addUser/adduser'> Sign Up</a></p>
                 </form>
+                
                 <div className = "danger"></div>
              </div>
              <Footer />
