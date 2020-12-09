@@ -7,7 +7,7 @@ import { storage } from "./firebase.js";
 
  class AddItems extends Component {
   constructor(props) {
-    super(props);
+    super(props)
 
     //Defining the "this" in the functions using .bind method
     this.onChangeItemName = this.onChangeItemName.bind(this);
@@ -25,8 +25,32 @@ import { storage } from "./firebase.js";
       image:null,
       url :'',
       progress:0,
+      phone:'',
+      
+
     }
   }
+
+//mount the user data so we add the username and phone number
+
+componentDidMount() {
+  axios.get("http://localhost:3000/addUser/")   
+     .then( res => {
+        //  this.setState({phone :res.data.phone})
+       var phones=0
+        for (var i = 0 ; i< res.data.length;i++){
+          if (res.data[i].username=== localStorage.getItem('username')){
+            phones=res.data[i].phone
+          }
+              
+        }
+        this.setState({phone: phones})
+       
+     })
+     .catch((error) => {
+         console.log(error);
+     })
+}
 
   //List of category
   //Event Handlers:
@@ -34,6 +58,7 @@ import { storage } from "./firebase.js";
     this.setState({
       itemName: e.target.value
     });
+
   }
 
   onChangeCategory(e) {
@@ -97,17 +122,17 @@ import { storage } from "./firebase.js";
          }
 
   onSubmit(e) {
-    console.log(this.state.url+"hiiiiiii")
+
     e.preventDefault();
     const item = {
       userName:localStorage.getItem('username'),
       itemName: this.state.itemName,
       category: this.state.category,
+      phonenumber:this.state.phone,
       description: this.state.description,
       type:this.state.type,
       image: this.state.url,
-      
-      
+
     }
 
     console.log(item);
@@ -115,7 +140,7 @@ import { storage } from "./firebase.js";
     axios.post("http://localhost:3000/addItems/add", item)
       .then(res => console.log(res.data));
 
-    window.location = '/ItemsList'
+    // window.location = '/ItemsList'
   }
 
   render() {

@@ -22,7 +22,7 @@ router.route('/add').post((req, res) => {
   const category = req.body.category;
   const type = req.body.type;
   const description = req.body.description;
-  const image=req.body.image; 
+  const image = req.body.image; 
  console.log(image+"wooow")
 
 
@@ -30,10 +30,10 @@ router.route('/add').post((req, res) => {
     userName,
     itemName,
     category,
-    type,
+    phonenumber,
     description,
     image,
-  
+    type
   });
     // saving the new item in the data base by .save method 
   newItem.save()

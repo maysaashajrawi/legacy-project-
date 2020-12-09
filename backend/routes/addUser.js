@@ -4,6 +4,7 @@ const bcrypt = require('bcrypt');
 const jwt =require('jsonwebtoken');
 
 
+ 
 
 // retreve all the data from mongo db
 router.route('/').get((req, res) => {
