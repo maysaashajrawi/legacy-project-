@@ -6,11 +6,9 @@ const { requireAuth } = require('./verifyToken')
 //AddItems is the schema
 //CRUD Operations:   (create -read-update-delete)
 // 
-
-
 //GET all items   retreva all the data and the schema structure from the mongoo db by .find method 
 router.route('/').get( (req, res) => {
-  AddItems.find()
+  AddItems.find() 
   .then(items => res.json(items))
   .catch(err => res.status(400).json('Error: ' + err));
   
@@ -22,12 +20,10 @@ router.route('/add').post((req, res) => {
   const userName = req.body.userName;
   const itemName = req.body.itemName;
   const category = req.body.category;
-  const phonenumber=req.body.phonenumber;
-  const description = req.body.description;
-  // const image=req.body.image; 
   const type = req.body.type;
-  
-
+  const description = req.body.description;
+  const image = req.body.image; 
+ console.log(image+"wooow")
 
 
   const newItem = new AddItems ({
@@ -36,7 +32,7 @@ router.route('/add').post((req, res) => {
     category,
     phonenumber,
     description,
-    // image,
+    image,
     type
   });
     // saving the new item in the data base by .save method 
@@ -65,8 +61,8 @@ router.route("/update/:id", ).post((req, res) => {
   .then(items => {
     items.itemName = req.body.itemName;
     items.category = req.body.category;
-    items.description = req.body.description;
     items.type = req.body.type;
+    items.description = req.body.description;
     items.image = req.body.image;
     items.save()
     .then(() => res.json("Item is updated!"))
@@ -77,3 +73,4 @@ router.route("/update/:id", ).post((req, res) => {
 
 
 module.exports = router;
+
