@@ -4,6 +4,7 @@ const { schema } = require('./addItems.model');
 const Schema = mongoose.Schema;
 //creat the Schema, what data we want to be saved
 const userSchema = new Schema({
+    
     username:{
         type: String,
         required: true,
@@ -27,11 +28,9 @@ const userSchema = new Schema({
         type: String,
         minlength: 4,
         required: true
-    },
-    date:{
-    type: Date,
-    default: Date.now    
     }
+  
+   
     
 });
 

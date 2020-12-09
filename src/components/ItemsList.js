@@ -3,7 +3,6 @@ import { Link, withRouter } from "react-router-dom";
 import axios from "axios";
 import Footer from "./Footer";
 import Navbar_Login from "./Navbar_Login";
-
 //
 const ClothesItem = (props) => (
   <tr>
@@ -11,7 +10,6 @@ const ClothesItem = (props) => (
     <td>{props.item.category}</td>
     <td>{props.item.type}</td>
     <td>{props.item.description}</td>
-
     <td>
       <img
         src={props.item.image}
@@ -40,31 +38,27 @@ const ClothesItem = (props) => (
     </td>
   </tr>
 );
-
 class ItemsList extends Component {
   constructor(props) {
     super(props);
-
     this.deleteItem = this.deleteItem.bind(this);
-
     this.state = {
       items: [],
       filteredItems: [],
       SearchString: "",
     };
   }
-
   componentDidMount() {
     axios
       .get("http://localhost:3000/addItems/")
       .then((res) => {
+        console.log(res.data.length);
         this.setState({ items: res.data });
       })
       .catch((error) => {
         console.log(error);
       });
   }
-
   deleteItem(id) {
     axios
       .delete("http://localhost:3000/addItems/" + id)
@@ -73,13 +67,11 @@ class ItemsList extends Component {
       items: this.state.items.filter((el) => el._id !== id),
     });
   }
-
   itemsList() {
     let listedItems =
       this.state.filteredItems.length > 0
         ? this.state.filteredItems
         : this.state.items;
-
     return listedItems.map((currentItem) => {
       return (
         <ClothesItem
@@ -90,7 +82,6 @@ class ItemsList extends Component {
       );
     });
   }
-
   onSearch = (e) => {
     let { items } = this.state;
     let string = e.target.value;
@@ -101,7 +92,6 @@ class ItemsList extends Component {
       this.setState({ SearchString: string, filteredItems: filteredItems });
     } else this.setState({ SearchString: string, filteredItems: [] });
   };
-
   render() {
     return (
       <div>
@@ -134,5 +124,4 @@ class ItemsList extends Component {
     );
   }
 }
-
 export default withRouter(ItemsList);

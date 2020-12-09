@@ -50,6 +50,8 @@ export default class Signup extends Component {
                 address : e.target.value
             })
           }
+
+
           onSubmit(e) {
             e.preventDefault();
         //where we set the state and send it in the post request
@@ -73,15 +75,12 @@ export default class Signup extends Component {
            
             axios.post("http://localhost:3000/addUser/adduser", user)
             .then(res => {
-            // console.log(user);
 
             window.location = '/login'
 
-            })  
-             
-           .catch(err => alert('user name or phone number is used') );
-          
 
+            })  
+           .catch(err => alert('user name or phone number is used') );
             //console.log('user added')   
         }
         
@@ -129,6 +128,7 @@ export default class Signup extends Component {
                 <input required='true' type='text' className="form-control col" value= {this.setState.address} onChange={this.onChangeAddress} placeholder='Address' />
                 <br></br>
                 </div>
+                
 
                 <input type='submit' value='Creat Account' className="btn btn-deep-orange darken-4"/>
                 <br></br>
