@@ -25,7 +25,8 @@ import { storage } from "./firebase.js";
       image:null,
       url :'',
       progress:0,
-      phone:''
+      phone:'',
+      userphone:''
 
     }
   }
@@ -33,22 +34,23 @@ import { storage } from "./firebase.js";
 //mount the user data so we add the username and phone number
 
 componentDidMount() {
-  
-  axios.get("http://localhost:3000/addUser/login")
-  .then(response =>{
-// console.log (response)
-// console.log(response.user.data)
-
- this.setState({ phone:response.data.user.phone
-
- })
-
-// location = '/AddItems'
-  })
-  .catch(err =>alert("username or password is incorrect") );         
+  axios.get("http://localhost:3000/addUser/")   
+     .then( res => {
+        //  this.setState({phone :res.data.phone})
+       var phones=0
+        for (var i = 0 ; i< res.data.length;i++){
+          if (res.data[i].username=== localStorage.getItem('username')){
+            phones=res.data[i].phone
+          }
+              
+        }
+        this.setState({phone: phones})
+       
+     })
+     .catch((error) => {
+         console.log(error);
+     })
 }
-    
-
 
 
 
@@ -60,7 +62,7 @@ componentDidMount() {
     this.setState({
       itemName: e.target.value
     });
-    console.log(this.state.phone)
+    
   }
 
   onChangeCategory(e) {
@@ -121,13 +123,19 @@ componentDidMount() {
          }
 
   onSubmit(e) {
+
+    console.log(this.state.phone)
+     
     e.preventDefault();
     const item = {
       userName:localStorage.getItem('username'),
       itemName: this.state.itemName,
       category: this.state.category,
+      phonenumber:this.state.phone,
       description: this.state.description,
       type:this.state.type,
+     
+
       
     }
 
@@ -136,7 +144,7 @@ componentDidMount() {
     axios.post("http://localhost:3000/addItems/add", item)
       .then(res => console.log(res.data));
 
-    window.location = '/ItemsList'
+    // window.location = '/ItemsList'
   }
 
   render() {
