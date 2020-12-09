@@ -119,8 +119,11 @@ deleteItem(id) {
  usersList() {
   let listedusers = (this.state.Data.length >0)? this.state.data :this.state.users;
 
-  return listedusers.filter(elet=> localStorage.getItem('username') === elet.username).map(currentUser => {
-    return <Profileuser user= { currentUser } deleteUser = { this.deleteUser} key = { currentUser._id }/>; 
+
+//{this.state.Data.filter(elet=> this.state.userid=== elet.userId ).map((ele,index) 
+  return listedusers.map(currentUser => {
+    return <Profileuser user= { currentUser } deleteUser = { this.deleteUser} key = { currentUser._id }/>;
+
   })
 } 
 
@@ -143,7 +146,6 @@ itemsList() {
 //   })
   
 // } 
-
 
 
 
@@ -248,20 +250,4 @@ itemsList() {
             }
             
             export default withRouter(Personalprofile)
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
