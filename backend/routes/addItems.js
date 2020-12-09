@@ -43,16 +43,12 @@ router.route("/:id").get((req, res) => {
     .catch((err) => res.status(400).json("Error: " + err));
 });
 //  to get the counter number
-router.route("/Homepage").get((req, res) => {
+router.route("/addItems").get((req, res) => {
   AddItems.find({ counter: { type: Number } }).then((counter) =>
     res.json(counter)
   );
   console.log(counter).catch((err) => res.status(400).json("Error: " + err));
 });
-
-// db.getCollection("User")
-//   .find({ user: { username: true } })
-//   .count();
 
 //DELETE item by ID
 router.route("/:id").delete((req, res) => {

@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import { Link, withRouter } from "react-router-dom";
+// import { Link, withRouter } from "react-router-dom";
 import axios from "axios";
 
 class Counter extends React.Component {
@@ -13,7 +13,7 @@ class Counter extends React.Component {
     axios
       .get("http://localhost:3000/addItems")
       .then((res) => {
-        console.log(res.data.length);
+        // console.log(res.data.length);
         this.setState({ counter: res.data.length });
       })
       .catch((error) => {

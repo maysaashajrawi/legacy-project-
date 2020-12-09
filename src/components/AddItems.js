@@ -2,7 +2,6 @@ import React, { Component } from "react";
 import axios from "axios";
 import { Link, withRouter } from "react-router-dom";
 import Footer from "./Footer";
-// import Navbar from "./Navbar";
 
 class AddItems extends Component {
   constructor(props) {
@@ -15,7 +14,6 @@ class AddItems extends Component {
     this.onSubmit = this.onSubmit.bind(this);
     this.onChangeimg = this.onChangeimg.bind(this);
     this.onChangetype = this.onChangetype.bind(this);
-    // this.onClickCounter = this.onClickCounter.bind(this);
 
     this.state = {
       itemName: "",
@@ -23,7 +21,6 @@ class AddItems extends Component {
       description: "",
       image: "",
       type: "Jacket",
-      // counter: 0,
     };
   }
 
@@ -52,19 +49,12 @@ class AddItems extends Component {
     this.setState({
       description: e.target.value,
     });
-    // console.log(this.state.counter);
   }
   onChangeimg(e) {
     this.setState({
       image: e.target.value,
     });
   }
-
-  // onClickCounter(e) {
-  //   this.setState({
-  //     counter: this.state.counter + 1,
-  //   });
-  // }
 
   onSubmit(e) {
     e.preventDefault();
@@ -74,7 +64,6 @@ class AddItems extends Component {
       description: this.state.description,
       type: this.state.type,
       image: this.state.image,
-      // counter: this.state.counter,
     };
 
     axios
@@ -176,7 +165,6 @@ class AddItems extends Component {
                 required="true"
                 className="form-control"
                 value={this.state.image}
-                // onChange={this.onChangeimg}
               />
             </div>
 
@@ -187,7 +175,6 @@ class AddItems extends Component {
                 type="submit"
                 value="Submit"
                 className="btn btn-deep-orange darken-4"
-                // onSubmit={this.onClickCounter}
               >
                 Submit
               </button>
