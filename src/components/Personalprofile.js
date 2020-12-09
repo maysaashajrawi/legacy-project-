@@ -3,6 +3,7 @@ import { storage } from "./firebase.js";
 import axios from "axios";
 import {  Link,withRouter } from "react-router-dom" ;
 import Footer from './Footer';
+// var imgModel = require('../../backend/models/user.model');
 
 const Profileuser= props => (
   <tr>
@@ -11,6 +12,8 @@ const Profileuser= props => (
       <td>{props.user.password}</td>
       <td>{props.user.phone}</td>
       <td>{props.user.address}</td>
+      <td>{props.user.image}</td>          
+                                             {/* // i dont Know if it right  */}
       <td>
       {/* <img src= {props.user.image} width="200" height="200" class="w3-round" alt="Norway"/> */}
       {/* <img src={props.user.url || "http://via.placeholder.com/50 50"} alt="firebase-image" width="200" height="200" class="w3-round"   /> */}
@@ -201,7 +204,7 @@ itemsList() {
                         <th>Password</th>
                         <th>Phone</th>
                         <th>Address</th>
-                        
+                        <th>Image </th>
                     </tr>
                 </thead>
                 <tbody>
