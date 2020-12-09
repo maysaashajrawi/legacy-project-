@@ -6,9 +6,11 @@ const { requireAuth } = require('./verifyToken')
 //AddItems is the schema
 //CRUD Operations:   (create -read-update-delete)
 // 
+
+
 //GET all items   retreva all the data and the schema structure from the mongoo db by .find method 
 router.route('/').get( (req, res) => {
-  AddItems.find() 
+  AddItems.find()
   .then(items => res.json(items))
   .catch(err => res.status(400).json('Error: ' + err));
   
@@ -16,21 +18,25 @@ router.route('/').get( (req, res) => {
 
 //POST(CREATE) new item
 // in side the post request i will create items and i get the data from request.body --> . the name of the attribute in the schema 
-router.route('/addItems').post((req, res) => {
+router.route('/add').post((req, res) => {
   const userName = req.body.userName;
   const itemName = req.body.itemName;
   const category = req.body.category;
+  const phonenumber=req.body.phonenumber;
   const description = req.body.description;
-  const image=req.body.image; 
+  // const image=req.body.image; 
   const type = req.body.type;
+  
+
 
 
   const newItem = new AddItems ({
     userName,
     itemName,
     category,
+    phonenumber,
     description,
-    image,
+    // image,
     type
   });
     // saving the new item in the data base by .save method 
