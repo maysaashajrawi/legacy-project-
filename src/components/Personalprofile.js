@@ -5,23 +5,20 @@ import {  Link,withRouter } from "react-router-dom" ;
 import Footer from './Footer';
 
 const Profileuser= props => (
-  <tr>
-    
-      <td>{props.user.username}</td>
-      <td>{props.user.password}</td>
-      <td>{props.user.phone}</td>
-      <td>{props.user.address}</td>
-      <td>
-      {/* <img src= {props.user.image} width="200" height="200" class="w3-round" alt="Norway"/> */}
-      {/* <img src={props.user.url || "http://via.placeholder.com/50 50"} alt="firebase-image" width="200" height="200" class="w3-round"   /> */}
-      </td>
-      <td>
-      <Link to ={"/edituser/"+props.user._id} className="btn btn-deep-orange darken-4" >Edit User</Link>
+  <tr  >
+    <div style={{marginTop:"30px",marginLeft:"450px",fontSize:"1.5rem" , fontFamily:"  serif"}}>
+     <div>{props.user.username}</div>
+     
+     <div>{props.user.phone}</div>
+     <div>{props.user.address}</div>
+     </div>
+      <div  style={{marginLeft:"450px"}}  >
+      <Link to ={"/edituser/"+props.user._id}  class="btn btn-success" >Edit User</Link>
       <button type = "button" 
-      className="btn btn-deep-orange darken-4"
+     class="btn btn-danger"
       onClick = {() => {props.deleteUser(props.user._id)}}> Delete User
       </button>
-      </td>
+    </div>
   </tr>
 )
 
@@ -189,32 +186,41 @@ itemsList() {
   
              render() {
                 return (
-                  <div>
+                  <div class="text-center"  style = {{ margin:"0 auto;" , marginBottom:"100px"}} > <div className = "col"   >
+                           
+                           <div  id='image'> <img src={this.state.url || "http://via.placeholder.com/50 50"} 
+                            alt="firebase" class="rounded"  width="304" height="236"/></div> 
+                            
+                           <input  type="file" onChange={this.handleChangeImage.bind(this)} className="btn btn-deep-orange darken-4" />
+                           <button  onClick={this.handleUpload.bind(this)} className="btn btn-deep-orange darken-4">Upload</button>
+                          
+                           </div>
+                           <div  class="text-center"  style = {{ margin:"0 auto;" , marginBottom:"100px"}} >{this.usersList()}</div>
                   <br />
+                  
                   <div className = "container text-center border border-light p-9">
-                  <h2>Hello User</h2>
-                   <p>  user information </p>
+                 
                 <table className = "table">
-                <thead className = "thead">
+                {/* <thead className = "thead">
                     <tr>
                         <th>User Name</th>
                         <th>Password</th>
-                        <th>Phone</th>
+                        <th>type</th>
                         <th>Address</th>
                         
                     </tr>
-                </thead>
+                </thead> */}
                 <tbody>
-                    {this.usersList()}
+                    
                     {/* {this.itemsList()} */}
                    
                 </tbody>
                 <thead className = "thead">
                     <tr>
-                        <th>User Name</th>
-                        <th>Password</th>
+                        <th>itemName</th>
+                        <th>category</th>
                         <th>Phone</th>
-                        <th>Address</th>
+                        <th>description</th>
                         
                     </tr>
                 </thead>
@@ -228,13 +234,6 @@ itemsList() {
                </table>
 
                </div>
-                            <div className = "col">
-                            <label>Image</label>
-                           <div  id='image' > <img src={this.state.url || "http://via.placeholder.com/50 50"} 
-                            alt="firebase"  /></div> 
-                           <input  type="file" onChange={this.handleChangeImage.bind(this)} className="btn btn-deep-orange darken-4" />
-                           <button  onClick={this.handleUpload.bind(this)} className="btn btn-deep-orange darken-4">Upload</button>
-                           </div>
                             <br />
                            
                     <Footer />
