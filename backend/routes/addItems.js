@@ -20,7 +20,7 @@ router.route("/add").post((req, res) => {
   const image = req.body.image;
   const type = req.body.type;
   const counter = req.body.counter;
-
+  // console.log(req.body.counter);
   const newItem = new AddItems({
     itemName,
     category,
@@ -42,18 +42,23 @@ router.route("/:id").get((req, res) => {
     .then((items) => res.json(items))
     .catch((err) => res.status(400).json("Error: " + err));
 });
-//to get the counter number
-router.route("/:id").get((req, res) => {
-  AddItems.find({ counter: { type: Number } })
-    .then((items) => res.json(counter))
-    .catch((err) => res.status(400).json("Error: " + err));
+//  to get the counter number
+router.route("/Homepage").get((req, res) => {
+  AddItems.find({ counter: { type: Number } }).then((counter) =>
+    res.json(counter)
+  );
+  console.log(counter).catch((err) => res.status(400).json("Error: " + err));
 });
+
+// db.getCollection("User")
+//   .find({ user: { username: true } })
+//   .count();
 
 //DELETE item by ID
 router.route("/:id").delete((req, res) => {
-  AddItems.findByIdAndDelete(req.params.id)
-    .then(() => res.json("Item is deleted!"))
-    .catch((err) => res.status(400).json("Error: " + err));
+  AddItems.findByIdA1(res.json("Item is deleted!")).catch((err) =>
+    res.status(400).json("Error: " + err)
+  );
 });
 
 //UPDATE item by ID

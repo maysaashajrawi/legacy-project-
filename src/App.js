@@ -14,7 +14,7 @@ import Signup from "./components/Signup";
 import EditItems from "./components/edit";
 import Homepage2 from "./components/Homepage2.js";
 import Profile from "./components/Profile.js";
-// import Navbar_Login from "./Navbar_Login";
+import Counter from "./components/Counter.js";
 
 function App() {
   return (
@@ -29,7 +29,7 @@ function App() {
         <Route path="/login" component={Login} />
         <Route path="/edit/:id" component={EditItems} />
         <Route path="/logout" component={Login} />
-        {/* <Route path="/Navbar_Login" component={Navbar_Login} /> */}
+        <Route path="/Counter" component={Counter} />
       </div>
     </Router>
   );

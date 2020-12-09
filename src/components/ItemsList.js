@@ -58,6 +58,7 @@ class ItemsList extends Component {
     axios
       .get("http://localhost:3000/addItems/")
       .then((res) => {
+        console.log(res.data.length);
         this.setState({ items: res.data });
       })
       .catch((error) => {
