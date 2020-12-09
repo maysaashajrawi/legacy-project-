@@ -136,7 +136,7 @@ componentDidMount() {
     axios.post("http://localhost:3000/addItems/add", item)
       .then(res => console.log(res.data));
 
-    window.location = '/ItemsList'
+   // window.location = '/ItemsList'
   }
 
   render() {

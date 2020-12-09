@@ -16,12 +16,12 @@ router.route('/').get( (req, res) => {
 
 //POST(CREATE) new item
 // in side the post request i will create items and i get the data from request.body --> . the name of the attribute in the schema 
-router.route('/addItems').post((req, res) => {
+router.route('/add').post((req, res) => {
   const userName = req.body.userName;
   const itemName = req.body.itemName;
   const category = req.body.category;
   const description = req.body.description;
-  const image=req.body.image; 
+  // const image=req.body.image; 
   const type = req.body.type;
 
 
