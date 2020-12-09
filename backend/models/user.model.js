@@ -50,6 +50,8 @@ const userSchema = new Schema({
 
 const User = mongoose.model('User', userSchema);
 
+
 // module.exports = new mongoose.model('Image', userSchema);
 
 module.exports = User;
+
