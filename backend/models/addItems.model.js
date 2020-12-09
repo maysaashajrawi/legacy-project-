@@ -12,7 +12,7 @@ const addItemsSchema = new Schema ({
  phonenumber: { type: Number, required: true, trim: true },
   type: { type: String, required: true, trim: true },
   description: { type: String, required: true, trim: true },
-  // image : {type:String,required: true, trim: true}
+  image : {type:String,required: true, trim: true}
 }, {
   timestamps: true,
 });
@@ -21,3 +21,4 @@ const addItemsSchema = new Schema ({
 const AddItems = mongoose.model("AddItems", addItemsSchema);
 
 module.exports = AddItems;
+
