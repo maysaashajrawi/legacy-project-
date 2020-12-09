@@ -1,4 +1,3 @@
-
 const router = require('express').Router();
 const AddItems = require('../models/addItems.model');
 // const User = require('../models/user.model');
@@ -74,3 +73,4 @@ router.route("/update/:id", ).post((req, res) => {
 
 
 module.exports = router;
+

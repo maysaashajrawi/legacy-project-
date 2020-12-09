@@ -3,9 +3,10 @@ import axios from 'axios';
 import Footer from './Footer';
 import { storage } from "./firebase.js";
 
-//creat a class for the sign up component 
+
+//creat a class for the sign up component
 export default class Signup extends Component {
-    constructor(props) {
+ constructor(props) {
         super(props);
             
         //bind functions, you can use this.function without the need to bind it everytime
@@ -168,20 +169,19 @@ export default class Signup extends Component {
                            <button  onClick={this.handleUpload.bind(this)} className="btn btn-deep-orange darken-4">Upload</button>
                            </div>
                             <br />
-                
 
-                <input type='submit' value='Creat Account' className="btn btn-deep-orange darken-4"/>
-                <br></br>
-                <br></br>
-                <b>If you already have an account<a href='/login'> Log In </a></b>
-                <br></br>
-            </form>
-       
-            </div>
-            <Footer />
-            </div>
-          
-         
-        )
-    }
+            <input type="submit"  value="Creat Account" className="btn btn-deep-orange darken-4" />
+            <br></br>
+            <br></br>
+            <b>
+              If you already have an account<a href="/login"> Log In </a>
+            </b>
+            <br></br>
+          </form>
+        </div>
+        <Footer />
+      </div>
+    );
+  }
+
 }
