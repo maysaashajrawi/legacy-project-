@@ -3,6 +3,7 @@ import { storage } from "./firebase.js";
 import axios from "axios";
 import {  Link,withRouter } from "react-router-dom" ;
 import Footer from './Footer';
+// var imgModel = require('../../backend/models/user.model');
 
 const Profileuser= props => (
   <tr>
@@ -11,6 +12,8 @@ const Profileuser= props => (
       <td>{props.user.password}</td>
       <td>{props.user.phone}</td>
       <td>{props.user.address}</td>
+      <td>{props.user.image}</td>          
+                                             {/* // i dont Know if it right  */}
       <td>
       {/* <img src= {props.user.image} width="200" height="200" class="w3-round" alt="Norway"/> */}
       {/* <img src={props.user.url || "http://via.placeholder.com/50 50"} alt="firebase-image" width="200" height="200" class="w3-round"   /> */}
@@ -26,6 +29,30 @@ const Profileuser= props => (
 )
 
 
+const Profileitems= props => (
+  <tr>
+    
+      <td>{props.item.itemName}</td>
+      <td>{props.item.category}</td>
+      <td>{props.item.type}</td>
+      <td>{props.item.description}</td>
+      <td>{props.item.image}</td>
+      <td>
+      {/* <img src= {props.user.image} width="200" height="200" class="w3-round" alt="Norway"/> */}
+      {/* <img src={props.user.url || "http://via.placeholder.com/50 50"} alt="firebase-image" width="200" height="200" class="w3-round"   /> */}
+       </td>
+       <td> 
+      <Link to ={"/edit/"+props.item._id} className="btn btn-deep-orange darken-4" >Edit item</Link>
+      <button type = "button" 
+      className="btn btn-deep-orange darken-4"
+      onClick = {() => {props.deleteItem(props.item._id)}}> Delete Item
+      </button>
+      </td> 
+  </tr>
+)
+
+
+
 
 class Personalprofile extends React.Component {
     constructor(props) {
@@ -38,21 +65,37 @@ class Personalprofile extends React.Component {
         image:null,
         url :'',
         progress:0,
-       };
+        Info:[],
+      items:[],
+           };
     
     }
     componentDidMount() {
       axios.get("http://localhost:3000/addUser/")   
          .then( res => {
              this.setState({users : res.data})
-            // console.log(res.data)
+           
+         })
+         .catch((error) => {
+             console.log(error);
+         });
+
+         axios.get("http://localhost:3000/addItems/")   
+         .then( res => {
+           var newitems=[]
+           for(var i =0 ; i< res.data.length;i++){
+             if(res.data[i].userName === localStorage.getItem('username')){
+                newitems.push(res.data[i])
+             }
+           }
+          
+             this.setState({items: newitems})
+            //  console.log(res.data)
          })
          .catch((error) => {
              console.log(error);
          })
  }
-
-
  deleteUser(id) {
   axios.delete("http://localhost:3000/addUser/" + id)    /// sent this req to the middleware in the index.js server
       .then(res => console.log(res.data));
@@ -62,18 +105,48 @@ class Personalprofile extends React.Component {
 }
 
 
+deleteItem(id) {
+  axios.delete("http://localhost:3000/addItems/" + id)
+      .then(res => console.log(res.data));
+  this.setState({
+      items: this.state.items.filter(el => el._id !== id)
+  })
+}
+
 
 
 
  usersList() {
   let listedusers = (this.state.Data.length >0)? this.state.data :this.state.users;
 
+
 //{this.state.Data.filter(elet=> this.state.userid=== elet.userId ).map((ele,index) 
   return listedusers.map(currentUser => {
     return <Profileuser user= { currentUser } deleteUser = { this.deleteUser} key = { currentUser._id }/>;
-    
+
   })
 } 
+
+itemsList() {
+  let listeditem = this.state.items;
+
+  return listeditem.map(currentItem => {
+    return <Profileitems item= { currentItem } deleteItem= { this.deleteItem} key = { currentItem._id }/>; 
+  })
+} 
+
+
+
+// usersList() {
+//   let listedusers = (this.st
+//     ate.Data.length >0)? this.state.data :this.state.users;
+
+//   return listedusers.filter(elet => localStorage.getItem('username')=== elet.username).map((ele,index) =>{
+//     return <Profileuser user= { ele.username}  deleteUser = { this.deleteUser} key = { ele._id }  address = { ele.address} phone = { ele.phone }/>; 
+//   })
+  
+// } 
+
 
 
 
@@ -133,13 +206,29 @@ class Personalprofile extends React.Component {
                         <th>Password</th>
                         <th>Phone</th>
                         <th>Address</th>
-                        
+                        <th>Image </th>
                     </tr>
                 </thead>
                 <tbody>
                     {this.usersList()}
+                    {/* {this.itemsList()} */}
+                   
                 </tbody>
-             
+                <thead className = "thead">
+                    <tr>
+                        <th>User Name</th>
+                        <th>Password</th>
+                        <th>Phone</th>
+                        <th>Address</th>
+                        
+                    </tr>
+                </thead>
+                <tbody>
+                  
+                    {this.itemsList()}
+                   
+                </tbody>
+                
 
                </table>
 
@@ -161,20 +250,4 @@ class Personalprofile extends React.Component {
             }
             
             export default withRouter(Personalprofile)
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 

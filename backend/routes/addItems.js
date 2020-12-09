@@ -16,22 +16,24 @@ router.route('/').get( (req, res) => {
 
 //POST(CREATE) new item
 // in side the post request i will create items and i get the data from request.body --> . the name of the attribute in the schema 
-router.route('/addItems').post((req, res) => {
+router.route('/add').post((req, res) => {
   const userName = req.body.userName;
   const itemName = req.body.itemName;
   const category = req.body.category;
+  const type = req.body.type;
   const description = req.body.description;
   const image=req.body.image; 
-  const type = req.body.type;
+ console.log(image+"wooow")
 
 
   const newItem = new AddItems ({
     userName,
     itemName,
     category,
+    type,
     description,
     image,
-    type
+  
   });
     // saving the new item in the data base by .save method 
   newItem.save()
@@ -59,8 +61,8 @@ router.route("/update/:id", ).post((req, res) => {
   .then(items => {
     items.itemName = req.body.itemName;
     items.category = req.body.category;
-    items.description = req.body.description;
     items.type = req.body.type;
+    items.description = req.body.description;
     items.image = req.body.image;
     items.save()
     .then(() => res.json("Item is updated!"))
@@ -71,3 +73,4 @@ router.route("/update/:id", ).post((req, res) => {
 
 
 module.exports = router;
+

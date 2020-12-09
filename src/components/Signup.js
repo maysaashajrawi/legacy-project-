@@ -1,10 +1,12 @@
 import React, { Component } from 'react';
 import axios from 'axios';
 import Footer from './Footer';
+import { storage } from "./firebase.js";
 
-//creat a class for the sign up component 
+
+//creat a class for the sign up component
 export default class Signup extends Component {
-    constructor(props) {
+ constructor(props) {
         super(props);
             
         //bind functions, you can use this.function without the need to bind it everytime
@@ -12,6 +14,7 @@ export default class Signup extends Component {
         this.onChangePassword = this.onChangePassword.bind(this);
         this.onChangePhone = this.onChangePhone.bind(this);
         this.onChangeAddress = this.onChangeAddress.bind(this);
+        this.handleChangeImage = this.handleChangeImage.bind(this);
       
         this.onSubmit = this.onSubmit.bind(this);
       //the keys are the same as the Schema .. see the modle userSchema in user.model.js line 6 or so.
@@ -20,7 +23,11 @@ export default class Signup extends Component {
             username: '',
             password:'',
             phone:'',
-            address:''
+            address:'',
+            image:null,
+            url :'',
+            progress:0,
+            
           }
 
         }
@@ -50,6 +57,43 @@ export default class Signup extends Component {
                 address : e.target.value
             })
           }
+          handleChangeImage(e) {
+          if (e.target.files[0]) {
+            this.setState({
+            image: e.target.files[0]
+            })
+        }
+      
+    }
+
+    // it handles the upload of the picture in the firbase
+    handleUpload () {
+      var uploadTask = storage.ref(`images/${this.state.image.name}`).put(this.state.image);
+        uploadTask.on(
+          "state_changed",
+          snapshot => {
+            var progress = Math.round(
+              (snapshot.bytesTransferred / snapshot.totalBytes) * 100
+            );
+            this.setState({
+              progress:progress})
+            },
+            error => {
+            console.log(error);
+           },
+            () => {
+              storage
+              .ref("images")
+              .child(this.state.image.name)
+              .getDownloadURL()
+              .then(url => {
+                this.setState({
+                  url : url
+              })
+              });
+              }
+              );
+           }
 
 
           onSubmit(e) {
@@ -59,25 +103,14 @@ export default class Signup extends Component {
               username: this.state.username,
               password: this.state.password,
               phone: this.state.phone,
-              address: this.state.address
+              address: this.state.address,
+              image: this.state.url,
             }
-            //post request tosend the data to the serverwhereitwill be saved
-            //this condetion to prevent users from creating short user name for securty
-            // if (this.state.username.length < 4 ){
-            // alert('please choose another name')
-            // }
-            //the input should be a number this should give the user an alreat if they type anything not a number
-            // if (this.state.phone !== number){
-            //   alert('please make sure to fill in phone with numbers only')
-            // }
-            //add conctions if the user name already taken
-            //if(this.state.username )
+           
            
             axios.post("http://localhost:3000/addUser/adduser", user)
             .then(res => {
-
-            window.location = '/login'
-
+            // window.location = '/login'
 
             })  
            .catch(err => alert('user name or phone number is used') );
@@ -128,22 +161,27 @@ export default class Signup extends Component {
                 <input required='true' type='text' className="form-control col" value= {this.setState.address} onChange={this.onChangeAddress} placeholder='Address' />
                 <br></br>
                 </div>
-                
+                <div className = "col">
+                            <label>Image</label>
+                           <div  id='image' > <img src={this.state.url || "http://via.placeholder.com/50*50"} 
+                            alt="firebase"  /></div> 
+                           <input  type="file" onChange={this.handleChangeImage.bind(this)} className="btn btn-deep-orange darken-4" />
+                           <button  onClick={this.handleUpload.bind(this)} className="btn btn-deep-orange darken-4">Upload</button>
+                           </div>
+                            <br />
 
-                <input type='submit' value='Creat Account' className="btn btn-deep-orange darken-4"/>
-                <br></br>
-                <br></br>
-                <b>If you already have an account<a href='/login'> Log In </a></b>
-                <br></br>
-            </form>
-       
-            </div>
-            <Footer />
-            </div>
-          
-         
-        )
-    }
+            <input type="submit"  value="Creat Account" className="btn btn-deep-orange darken-4" />
+            <br></br>
+            <br></br>
+            <b>
+              If you already have an account<a href="/login"> Log In </a>
+            </b>
+            <br></br>
+          </form>
+        </div>
+        <Footer />
+      </div>
+    );
+  }
+
 }
-
-
