@@ -13,10 +13,10 @@ import { storage } from "./firebase.js";
     this.onChangeItemName = this.onChangeItemName.bind(this);
     this.onChangeCategory = this.onChangeCategory.bind(this);
     this.onChangeDescription = this.onChangeDescription.bind(this);
+    this.handleChangeImage = this.handleChangeImage.bind(this);
+    this.onChangetype = this.onChangetype.bind(this);
     this.onSubmit = this.onSubmit.bind(this);
     
-    this.onChangetype = this.onChangetype.bind(this);
-
     this.state = {
       itemName: "",
       category : "Women",
@@ -89,11 +89,15 @@ import { storage } from "./firebase.js";
                 url : url
             })
             });
+
             }
+
             );
+            
          }
 
   onSubmit(e) {
+    console.log(this.state.url+"hiiiiiii")
     e.preventDefault();
     const item = {
       userName:localStorage.getItem('username'),
@@ -101,6 +105,8 @@ import { storage } from "./firebase.js";
       category: this.state.category,
       description: this.state.description,
       type:this.state.type,
+      image: this.state.url,
+      
       
     }
 
@@ -118,7 +124,7 @@ import { storage } from "./firebase.js";
         <br />
         <div className = "container">
        
-          <form className="text-center border border-light p-9" action="#!" onSubmit = {this.onSubmit} >
+          <form className="text-center border border-light p-9" action="#!"  >
 
             <h3> "Only by giving are you able to receive more than you already have." -Jim Rohn </h3>
 
@@ -192,7 +198,7 @@ import { storage } from "./firebase.js";
                 
                 <div className = "col">
                             <label>Image</label>
-                           <div  id='image' > <img src={this.state.url || "http://via.placeholder.com/50 50"} 
+                           <div  id='image' > <img src={this.state.url || "http://via.placeholder.com/50*50"} 
                             alt="firebase"  /></div> 
                            <input  type="file" onChange={this.handleChangeImage.bind(this)} className="btn btn-deep-orange darken-4" />
                            <button  onClick={this.handleUpload.bind(this)} className="btn btn-deep-orange darken-4">Upload</button>
@@ -201,7 +207,7 @@ import { storage } from "./firebase.js";
                   <br />
 
                 <div>
-                <button type="submit" value = "Submit" className="btn btn-deep-orange darken-4">Submit</button>
+                <button type="submit" onClick= {this.onSubmit} className="btn btn-deep-orange darken-4">Submit</button>
                 </div>
 
           </form>

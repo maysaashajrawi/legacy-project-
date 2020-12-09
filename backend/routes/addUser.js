@@ -32,11 +32,12 @@ router.route('/').get((req, res) => {
    const hashedPassword =  await bcrypt.hash(req.body.password, salt)
   const phone = req.body.phone;
   const address = req.body.address;
+  const image= req.body.image;
 //every thing is readdy here we send the data to the server  
    
 
 
-const newUser = new AddUser({username:username,password:hashedPassword, phone: phone, address:address });
+const newUser = new AddUser({username:username,password:hashedPassword, phone: phone, address:address, image:image});
    try{
    const saveUser= await newUser.save()
       res.send({saveUser:newUser._id})
@@ -101,6 +102,7 @@ router.route("/update/:id", ).post((req, res) => {
     users.password= req.body.password;
     users.phone = req.body.phone;
     users.address= req.body.address;
+    users.image= req.body.image;
     
     users.save()
     .then(() => res.json("Users is updated!"))
