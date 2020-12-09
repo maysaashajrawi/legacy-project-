@@ -7,7 +7,7 @@ import { storage } from "./firebase.js";
 
  class AddItems extends Component {
   constructor(props) {
-    super(props);
+    super(props)
 
     //Defining the "this" in the functions using .bind method
     this.onChangeItemName = this.onChangeItemName.bind(this);
