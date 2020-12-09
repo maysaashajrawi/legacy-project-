@@ -1,8 +1,8 @@
 const router = require('express').Router();
 const AddItems = require('../models/addItems.model');
 // const User = require('../models/user.model');
-const verfiy = require('./verifyToken')
-const { requireAuth } = require('./verifyToken')
+const verifyToken = require('./verifyToken')
+// const { requireAuth } = require('./verifyToken')
 //AddItems is the schema
 //CRUD Operations:
 // 
@@ -15,7 +15,7 @@ router.route('/').get( (req, res) => {
 });
 
 //POST(CREATE) new item
-router.route('/add').post((req, res) => {
+router.route('/add').post(verifyToken,(req, res) => {
   const userName = req.body.userName;
   const itemName = req.body.itemName;
   const category = req.body.category;
@@ -38,21 +38,21 @@ router.route('/add').post((req, res) => {
 });
 
 //GET item by ID
-router.route("/:id").get((req, res) => {
+router.route("/:id").get(verifyToken,(req, res) => {
   AddItems.findById(req.params.id)
   .then(items => res.json(items))
   .catch(err => res.status(400).json("Error: " + err));
 });
 
 //DELETE item by ID
-router.route("/:id").delete((req, res) => {
+router.route("/:id").delete(verifyToken,(req, res) => {
   AddItems.findByIdAndDelete(req.params.id)
   .then(() => res.json('Item is deleted!'))
   .catch(err => res.status(400).json("Error: " + err));
 });
 
 //UPDATE item by ID
-router.route("/update/:id", ).post((req, res) => {
+router.route("/update/:id").post(verifyToken,(req, res) => {
   AddItems.findById(req.params.id)
   .then(items => {
     items.itemName = req.body.itemName;

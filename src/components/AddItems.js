@@ -17,14 +17,27 @@ import Footer from './Footer';
     this.onChangetype = this.onChangetype.bind(this);
 
     this.state = {
+
       itemName: "",
       category : "Women",
       description: "",
       image : "",
-      type:"Jacket"
+      type:"Jacket",
+    
     }
   }
 
+    //component
+    componentDidMount(){
+      axios.get( )
+      .then(res =>{
+        console.log(res);
+      },
+      err =>{
+        console.log("error" , err);
+      }
+      )
+    }
   //List of category
   //Event Handlers:
   onChangeItemName(e) {

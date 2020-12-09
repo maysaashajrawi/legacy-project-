@@ -3,10 +3,8 @@ import React from 'react';
 import { BrowserRouter as Router, Route } from "react-router-dom";
 import 'bootstrap/dist/css/bootstrap.min.css';
 import 'mdbreact/dist/css/mdb.css';
-import ProtectedRoute from './components/ProtectedRoute';
-import Profile from './components/Profile';
+import PrivateRoute from './components/PrivateRoute';
 import './App.css';
-
 import Profile from './components/Profile';
 import Homepage from './components/Homepage';
 import Navbar from './components/Navbar';
@@ -27,12 +25,12 @@ function App() {
 
         <Route path = "/homepage" component = { Homepage } />
         <Route path="/ItemsList" component={ItemsList} />
-        <Route path="/addItems" component={AddItems} />
+        <PrivateRoute path="/addItems" component={AddItems} />
         <Route path = "/addUser"  component = { Signup } />
         <Route path = "/login" component = { Login } />
         <Route path = "/edit/:id" component = { EditItems }/>
         <Route path = "/logout" component = { Login } />
-        <Route path = "/profile" component = { Profile } />
+        <PrivateRoute path = "/profile" component = { Profile } />
 
     
       </div>

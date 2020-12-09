@@ -8,12 +8,14 @@ const userSchema = new Schema({
         type: String,
         required: true,
         unique:true,
-        minlength:3,
+        min:3,
+        max:255,
         trim: true
     },
     password : {
         type: String,
-        minlength: 5,
+        min: 6,
+        max:1024,
         required: true
         
     },
@@ -21,13 +23,16 @@ const userSchema = new Schema({
         
         type: Number,
          unique:true,
-        min:10
+        min:10,
+        max:255,
     },
     address:{
         type: String,
-        minlength: 4,
+        min: 4,
         required: true
     }
+    // image:{type:String,required: true, trim: true}
+
    
     
 });
