@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import axios from 'axios';
 import Footer from './Footer';
+import Navbar from "./Navbar"
 export default class Login extends Component {
     constructor(props) {
         super(props);  
@@ -34,19 +35,22 @@ export default class Login extends Component {
         .then(response =>{
           // console.log (response)
           localStorage.setItem('user-tooken', response.data.token);
-          localStorage.setItem('user-id', response.data.user._id);
+          localStorage.setItem('username', response.data.user.username);
           if(localStorage.getItem('user-tooken' , response.data.token)){
             console.log(localStorage.getItem('user-tooken'))
             window.location = '/AddItems';
             }
           })
         .catch(err => 
-          document.getElementById("danger").innerHTML="username or password is incorrect" 
+          console.log("username or password is incorrect")
+          // document.getElementById("danger").innerHTML="username or password is incorrect" 
           );         
     }
     render(){
         return (
+          
                <div>
+                 <Navbar/>
                <br />
                <div className = "container">
                 <form className="text-center border border-light p-9" onSubmit={this.onSubmit}>

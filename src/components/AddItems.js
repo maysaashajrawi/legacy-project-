@@ -3,7 +3,7 @@ import axios from "axios";
 import { withRouter } from "react-router-dom" ;
 import Footer from './Footer';
 import { storage } from "./firebase.js";
-
+import Navbar_Login from "./Navbar_Login"
 
  class AddItems extends Component {
   constructor(props) {
@@ -89,37 +89,34 @@ componentDidMount() {
     }
   
 }
-  // it handles the upload of the picture in the firbase
-  handleUpload () {
-    var uploadTask = storage.ref(`images/${this.state.image.name}`).put(this.state.image);
-      uploadTask.on(
-        "state_changed",
-        snapshot => {
-          var progress = Math.round(
-            (snapshot.bytesTransferred / snapshot.totalBytes) * 100
+ // it handles the upload of the picture in the firbase
+ handleUpload () {
+  var uploadTask = storage.ref(`images/${this.state.image.name}`).put(this.state.image);
+    uploadTask.on(
+      "state_changed",
+      snapshot => {
+        var progress = Math.round(
+          (snapshot.bytesTransferred / snapshot.totalBytes) * 100
+        );
+        this.setState({
+          progress:progress})
+        },
+        error => {
+        console.log(error);
+       },
+        () => {
+          storage
+          .ref("images")
+          .child(this.state.image.name)
+          .getDownloadURL()
+          .then(url => {
+            this.setState({
+              url : url
+          })
+          });
+          }
           );
-          this.setState({
-            progress:progress})
-          },
-          error => {
-          console.log(error);
-         },
-          () => {
-            storage
-            .ref("images")
-            .child(this.state.image.name)
-            .getDownloadURL()
-            .then(url => {
-              this.setState({
-                url : url
-            })
-            });
-
-            }
-
-            );
-            
-         }
+       }
 
   onSubmit(e) {
 
@@ -146,6 +143,7 @@ componentDidMount() {
   render() {
     return (
       <div>
+        <Navbar_Login/>
         <br />
         <div className = "container">
        

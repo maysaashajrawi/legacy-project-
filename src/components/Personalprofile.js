@@ -3,28 +3,23 @@ import { storage } from "./firebase.js";
 import axios from "axios";
 import {  Link,withRouter } from "react-router-dom" ;
 import Footer from './Footer';
-// var imgModel = require('../../backend/models/user.model');
-
+import Navbar_Login from "./Navbar_Login";
+import { Navbar } from 'react-bootstrap';
 const Profileuser= props => (
-  <tr>
-    
-      <td>{props.user.username}</td>
-      <td>{props.user.password}</td>
-      <td>{props.user.phone}</td>
-      <td>{props.user.address}</td>
-      <td>{props.user.image}</td>          
-                                             {/* // i dont Know if it right  */}
-      <td>
-      {/* <img src= {props.user.image} width="200" height="200" class="w3-round" alt="Norway"/> */}
-      {/* <img src={props.user.url || "http://via.placeholder.com/50 50"} alt="firebase-image" width="200" height="200" class="w3-round"   /> */}
-      </td>
-      <td>
-      <Link to ={"/edituser/"+props.user._id} className="btn btn-deep-orange darken-4" >Edit User</Link>
+  <tr  >
+    <div style={{marginTop:"30px",marginLeft:"450px",fontSize:"1.5rem" , fontFamily:"  serif"}}>
+     <div>{props.user.username}</div>
+     
+     <div>{props.user.phone}</div>
+     <div>{props.user.address}</div>
+     </div>
+      <div  style={{marginLeft:"450px"}}  >
+      <Link to ={"/edituser/"+props.user._id}  class="btn btn-success" >Edit User</Link>
       <button type = "button" 
-      className="btn btn-deep-orange darken-4"
+     class="btn btn-danger"
       onClick = {() => {props.deleteUser(props.user._id)}}> Delete User
       </button>
-      </td>
+    </div>
   </tr>
 )
 
@@ -74,6 +69,7 @@ class Personalprofile extends React.Component {
       axios.get("http://localhost:3000/addUser/")   
          .then( res => {
              this.setState({users : res.data})
+             console.log(res.data)
            
          })
          .catch((error) => {
@@ -90,7 +86,7 @@ class Personalprofile extends React.Component {
            }
           
              this.setState({items: newitems})
-            //  console.log(res.data)
+             console.log(this.state.items)
          })
          .catch((error) => {
              console.log(error);
@@ -119,11 +115,8 @@ deleteItem(id) {
  usersList() {
   let listedusers = (this.state.Data.length >0)? this.state.data :this.state.users;
 
-
-//{this.state.Data.filter(elet=> this.state.userid=== elet.userId ).map((ele,index) 
-  return listedusers.map(currentUser => {
-    return <Profileuser user= { currentUser } deleteUser = { this.deleteUser} key = { currentUser._id }/>;
-
+  return listedusers.filter(elet=> localStorage.getItem('username') === elet.username).map(currentUser => {
+    return <Profileuser user= { currentUser } deleteUser = { this.deleteUser} key = { currentUser._id }/>; 
   })
 } 
 
@@ -146,6 +139,7 @@ itemsList() {
 //   })
   
 // } 
+
 
 
 
@@ -195,31 +189,43 @@ itemsList() {
              render() {
                 return (
                   <div>
+
+                  <Navbar_Login/>
+                  <div className="text-center"  style = {{ margin:"0 auto" , marginBottom:"100px"}} > <div className = "col"   >
+                           
+                           <div  id='image'> <img src={this.state.url || "http://via.placeholder.com/50 50"} 
+                            alt="firebase" className="rounded"  width="304" height="236"/></div> 
+                            
+                           <input  type="file" onChange={this.handleChangeImage.bind(this)} className="btn btn-deep-orange darken-4" />
+                           <button  onClick={this.handleUpload.bind(this)} className="btn btn-deep-orange darken-4">Upload</button>
+                          
+                           </div>
+                           <div  className="text-center"  style = {{ margin:"0 auto;" , marginBottom:"100px"}} >{this.usersList()}</div>
                   <br />
+                  
                   <div className = "container text-center border border-light p-9">
-                  <h2>Hello User</h2>
-                   <p>  user information </p>
+                 
                 <table className = "table">
-                <thead className = "thead">
+                {/* <thead className = "thead">
                     <tr>
                         <th>User Name</th>
                         <th>Password</th>
-                        <th>Phone</th>
+                        <th>type</th>
                         <th>Address</th>
-                        <th>Image </th>
+                        
                     </tr>
-                </thead>
+                </thead> */}
                 <tbody>
-                    {this.usersList()}
+                    
                     {/* {this.itemsList()} */}
                    
                 </tbody>
                 <thead className = "thead">
                     <tr>
-                        <th>User Name</th>
-                        <th>Password</th>
+                        <th>itemName</th>
+                        <th>category</th>
                         <th>Phone</th>
-                        <th>Address</th>
+                        <th>description</th>
                         
                     </tr>
                 </thead>
@@ -233,21 +239,30 @@ itemsList() {
                </table>
 
                </div>
-                            <div className = "col">
-                            <label>Image</label>
-                           <div  id='image' > <img src={this.state.url || "http://via.placeholder.com/50 50"} 
-                            alt="firebase"  /></div> 
-                           <input  type="file" onChange={this.handleChangeImage.bind(this)} className="btn btn-deep-orange darken-4" />
-                           <button  onClick={this.handleUpload.bind(this)} className="btn btn-deep-orange darken-4">Upload</button>
-                           </div>
                             <br />
                            
                     <Footer />
                   </div>
-                    
+                  </div>  
                 )
               }
             }
             
             export default withRouter(Personalprofile)
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 

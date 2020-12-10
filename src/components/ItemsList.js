@@ -2,7 +2,7 @@ import React, { Component } from "react";
 import { Link ,withRouter } from "react-router-dom" ;
 import axios from "axios";
 import Footer from './Footer';
-
+import Navbar from "./Navbar"
 const ClothesItem = props => (
     <tr>
         <td>{props.item.itemName}</td>
@@ -16,7 +16,10 @@ const ClothesItem = props => (
         <td>
       
         </td>
-            <button >  <a href="cctel:+962 7 980 7680" >Call </a> </button> 
+        <td>
+        <button >  <a href="cctel:+962 7 980 7680" >Call </a> </button> 
+        </td>
+            
             
       </td>
      
@@ -140,6 +143,7 @@ class ItemsList extends Component {
 
         return (
             <div>
+                <Navbar/>
             <br />
 
             <div className = "container text-center border border-light p-9">
@@ -181,7 +185,10 @@ class ItemsList extends Component {
                     <option value = "Scarf">Scarf</option>
 
                   </select>
-                  </th> <button onClick={this.Rest.bind(this)}> Rest </button>
+                  </th> 
+                  <th>
+                  <button onClick={this.Rest.bind(this)}> Rest </button>
+                  </th>
                         
                     </tr>
                 </thead>
@@ -196,6 +203,7 @@ class ItemsList extends Component {
                         <th>Type</th>
                         <th>Description</th>
                         <th>Image</th>
+                        <th>call</th>
                         
                     </tr>
                 </thead>

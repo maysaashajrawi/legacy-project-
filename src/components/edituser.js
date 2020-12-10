@@ -79,6 +79,7 @@ handleUpload () {
               password: response.data.password,
               phone: response.data.phone,
               address: response.data.address,
+              image: response.data.image,
             })  
     
           })

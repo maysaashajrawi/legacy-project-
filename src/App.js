@@ -4,7 +4,6 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 import 'mdbreact/dist/css/mdb.css';
 import PrivateRoute from './components/PrivateRoute';
 import './App.css';
-import Profile from './components/Profile';
 import Homepage from './components/Homepage';
 import Navbar from './components/Navbar';
 import AddItems from './components/AddItems';
@@ -12,43 +11,29 @@ import ItemsList from './components/ItemsList';
 import Login from './components/Login';
 import Signup from './components/Signup';
 import EditItems from './components/edit';
+import Homepage2 from "./components/Homepage2.js";
+import Counter from "./components/Counter.js";
+import Edituser from "./components/edituser";
 
 import "bootstrap/dist/css/bootstrap.min.css";
 import "mdbreact/dist/css/mdb.css";
-import PrivateRoute from "./components/PrivateRoute";
 import "./App.css";
-
-import Homepage from "./components/Homepage";
-
-import AddItems from "./components/AddItems";
-import ItemsList from "./components/ItemsList";
-import Login from "./components/Login";
-import Signup from "./components/Signup";
-import EditItems from "./components/edit";
-import Homepage2 from "./components/Homepage2.js";
-import Profile from "./components/Profile.js";
-import Counter from "./components/Counter.js";
-
+import Personalprofile from "./components/Personalprofile";
 
 function App() {
   return (
     <Router className="container">
       <div>
-        <Route path="/Profile" component={Profile} />
         <Route path="/homepage2" component={Homepage2} />
         <Route path="/homepage" component={Homepage} />
         <Route path="/ItemsList" component={ItemsList} />
         <PrivateRoute path="/addItems" component={AddItems} />
+        <PrivateRoute path="/edituser/:id" component={Edituser} />
         <Route path = "/addUser"  component = { Signup } />
-        <Route path = "/login" component = { Login } />
-        <Route path = "/edit/:id" component = { EditItems }/>
-        <Route path = "/logout" component = { Login } />
-        <PrivateRoute path = "/profile" component = { Profile } />
-        <Route path="/addItems" component={AddItems} />
-        <Route path="/addUser" component={Signup} />
+        <Route path="/Profile" component={Personalprofile} />
         <Route path="/login" component={Login} />
-        <Route path="/edit/:id" component={EditItems} />
-        <Route path="/logout" component={Login} />
+        <PrivateRoute path="/edit/:id" component={EditItems} />
+        <PrivateRoute path="/logout" component={Login} />
         <Route path="/Counter" component={Counter} />
 
       </div>

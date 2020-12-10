@@ -2,10 +2,6 @@ const router = require('express').Router();
 const AddUser = require('../models/user.model');
 const bcrypt = require('bcrypt');
 const jwt =require('jsonwebtoken');
-
-
- 
-
 // retreve all the data from mongo db
 router.route('/').get((req, res) => {
       AddUser.find()
@@ -28,10 +24,7 @@ router.route('/').get((req, res) => {
   const phone = req.body.phone;
   const address = req.body.address;
   const image= req.body.image;
-//every thing is readdy here we send the data to the server  
-   
-
-
+//every thing is readdy here we send the data to the server
 const newUser = new AddUser({username:username,password:hashedPassword, phone: phone, address:address, image:image});
    try{
    const saveUser= await newUser.save()
@@ -46,143 +39,44 @@ const newUser = new AddUser({username:username,password:hashedPassword, phone: p
      res.status(400).send(err)
    }
     });
-    
-    ///login
+    ///loggingggg innnn
     router.route('/login').post(async (req, res) => {
-    //checking if the username is signed up 
+    //checking if the username is signed up
       const user = await AddUser.findOne({username: req.body.username})
       if (!user) {return res.status(400).send("there is no account with this username,please check your username?")};
     //checking if password is correct
       const validpassword = await bcrypt.compare(req.body.password, user.password)
       if (!validpassword) return res.status(400).send('Password not correct');
-      
-      //creat and send a token
+    //creat and send a token
       const token = jwt.sign({_id: user._id}, process.env.JWT_SECRET );
      res.send({token :token,user:user});
-    res.json({auth:true , token:token , userInfo:user })
      //console.log(res.header)
        });
-    module.exports= router
-
-
-
-
-
-
-
-
-
-    /////// Maysaa
-
-
-
-
-
-
-
-
-// const router = require('express').Router();
-// const AddUser = require('../models/user.model');
-// //validation 
-// // const Joi = require('@hapi/joi');
-// const bcrypt = require('bcrypt');
-// const jwt =require('jsonwebtoken');
-
-
-
-
-
-
-// router.route('/').get((req, res) => {
-//       AddUser.find()
-//     .then(users => res.json(users))
-//     .catch(err => res.status(400).json('Error: ' + err));
-  
- 
-//   });
-
-//    // make some validation
-// //    const userSchema = {
-// //     username:Joi.string()
-// //             .min(6)
-// //             .required()
-// //     ,
-// //     password :Joi.string()
-// //               .min(6)
-// //               .required(),
-// //     phone:Joi.number() 
-// //           .min(10)
-// //           .required()
-
-// // }    ;
-
-
-
-
-//   router.route('/adduser').post(async (req, res) => {
- 
-//   // const validation = Joi.validate(req.body , userSchema);
-//   // res.send(validation)
-//   //checking if the number already signed up
-//   //i am not sure we need this since we already put  unique:true in the schema
-
-//   // define user and get data from form (it from request)
-//       // const user = new AddUser({
-//       //   username:req.body.username,
-//       //   password : req.body.password,
-//       //   phone:req.body.phone,
-//       //   address:req.body.address,
-//       //   image:req.body.image
-//       // })
-//       // // if every thing good go to try to save the data
-//       // try{
-
-//       //   const savedUser = await user.save();
-//       //   res.send(savedUser)
-//           // validate the  schema
-//           // const validation = Joi.validate(req.body , userSchema);
-
-//       // }
-//       // // if have any error it must go to catch 
-//       // catch(err){
-//       //   res.status(400).send(err);
-//       // }
-//}
-
-
-
-
-
 //GET users by ID  becouse i want to delete and update this user / we will use find by id method and how ? by get the id by (req.params.id)
-// router.route("/getuser/:id").get((req, res) => {
-//   AddUser.findById(req.params.id)
-//   .then(users => res.json(users))
-//   .catch(err => res.status(400).json("Error: " + err));
-// });
-
-// //DELETE user by ID
-// router.route("/:id").delete((req, res) => {
-//   AddUser.findByIdAndDelete(req.params.id)
-//   .then(() => res.json('User is deleted!'))
-//   .catch(err => res.status(400).json("Error: " + err));
-// })
-
-// //UPDATE user by ID
-// router.route("/update/:id", ).post((req, res) => {
-//   AddUser.findById(req.params.id)
-//   .then(users => {
-//     users.username = req.body.username;
-//     users.password= req.body.password;
-//     users.phone = req.body.phone;
-//     users.address= req.body.address;
-//     users.image= req.body.image;
-    
-//     users.save()
-//     .then(() => res.json("Users is updated!"))
-//     .catch(err => res.status(400).json('Error: ' + err));
-//   })
-//     .catch(err => res.status(400).json('Error: ' + err));
-// })
-
-
-//     module.exports= router;
+router.route("/:id").get((req, res) => {
+  AddUser.findById(req.params.id)
+  .then(users => res.json(users))
+  .catch(err => res.status(400).json("Error: " + err));
+});
+//DELETE user by ID
+router.route("/:id").delete((req, res) => {
+  AddUser.findByIdAndDelete(req.params.id)
+  .then(() => res.json('User is deleted!'))
+  .catch(err => res.status(400).json("Error: " + err));
+})
+//UPDATE user by ID
+router.route("/update/:id", ).post((req, res) => {
+  AddUser.findById(req.params.id)
+  .then(users => {
+    users.username = req.body.username;
+    users.password= req.body.password;
+    users.phone = req.body.phone;
+    users.address= req.body.address;
+    users.image= req.body.image;
+    users.save()
+    .then(() => res.json("Users is updated!"))
+    .catch(err => res.status(400).json('Error: ' + err));
+  })
+    .catch(err => res.status(400).json('Error: ' + err));
+})
+    module.exports= router;
