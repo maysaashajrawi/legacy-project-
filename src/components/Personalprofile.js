@@ -3,14 +3,18 @@ import { storage } from "./firebase.js";
 import axios from "axios";
 import {  Link,withRouter } from "react-router-dom" ;
 import Footer from './Footer';
-
-const Profileuser= props => (
+import Navbar_Login from "./Navbar_Login";
+import { Navbar } from 'react-bootstrap';
+    const Profileuser= props => (
   <tr  >
     <div style={{marginTop:"30px",marginLeft:"450px",fontSize:"1.5rem" , fontFamily:"  serif"}}>
+      <div>Hello our great donar </div>
      <div>{props.user.username}</div>
      
      <div>{props.user.phone}</div>
      <div>{props.user.address}</div>
+    <img src= {props.user.image} width='50' height='50'/>
+
      </div>
       <div  style={{marginLeft:"450px"}}  >
       <Link to ={"/edituser/"+props.user._id}  class="btn btn-success" >Edit User</Link>
@@ -30,11 +34,11 @@ const Profileitems= props => (
       <td>{props.item.category}</td>
       <td>{props.item.type}</td>
       <td>{props.item.description}</td>
-      <td>{props.item.image}</td>
-      <td>
+      <img src= {props.item.image} width='50' height='50'/>
+    
       {/* <img src= {props.user.image} width="200" height="200" class="w3-round" alt="Norway"/> */}
       {/* <img src={props.user.url || "http://via.placeholder.com/50 50"} alt="firebase-image" width="200" height="200" class="w3-round"   /> */}
-       </td>
+      
        <td> 
       <Link to ={"/edit/"+props.item._id} className="btn btn-deep-orange darken-4" >Edit item</Link>
       <button type = "button" 
@@ -68,6 +72,7 @@ class Personalprofile extends React.Component {
       axios.get("http://localhost:3000/addUser/")   
          .then( res => {
              this.setState({users : res.data})
+             console.log(res.data)
            
          })
          .catch((error) => {
@@ -84,7 +89,7 @@ class Personalprofile extends React.Component {
            }
           
              this.setState({items: newitems})
-            //  console.log(res.data)
+             console.log(this.state.items)
          })
          .catch((error) => {
              console.log(error);
@@ -96,6 +101,8 @@ class Personalprofile extends React.Component {
   this.setState({
       users: this.state.users.filter(el => el._id !== id)
   })
+  window.localStorage.clear()
+  window.location = '/'
 }
 
 
@@ -105,6 +112,7 @@ deleteItem(id) {
   this.setState({
       items: this.state.items.filter(el => el._id !== id)
   })
+  window.location = '/profile'
 }
 
 
@@ -186,33 +194,30 @@ itemsList() {
   
              render() {
                 return (
-                  <div class="text-center"  style = {{ margin:"0 auto;" , marginBottom:"100px"}} > <div className = "col"   >
+                  <div>
+
+                  <Navbar_Login/>
+                  <div className="text-center"  style = {{ margin:"0 auto" , marginBottom:"100px"}} > <div className = "col"   >
                            
-                           <div  id='image'> <img src={this.state.url || "http://via.placeholder.com/50 50"} 
-                            alt="firebase" class="rounded"  width="304" height="236"/></div> 
+                            {/* <div > <img src={this.state.url || "http://via.placeholder.com/50*50"} 
+                          className="rounded"  width="304" height="236"/> */}
+                          </div> 
                             
-                           <input  type="file" onChange={this.handleChangeImage.bind(this)} className="btn btn-deep-orange darken-4" />
-                           <button  onClick={this.handleUpload.bind(this)} className="btn btn-deep-orange darken-4">Upload</button>
+                           {/* <input  type="file" onChange={this.handleChangeImage.bind(this)} className="btn btn-deep-orange darken-4" />
+                           <button  onClick={this.handleUpload.bind(this)} className="btn btn-deep-orange darken-4">Upload</button> */}
                           
-                           </div>
-                           <div  class="text-center"  style = {{ margin:"0 auto;" , marginBottom:"100px"}} >{this.usersList()}</div>
-                  <br />
+                           {/* </div> */}
+                         
+
+                           <div  className="text-center"  style = {{ margin:"0 auto;" , marginBottom:"100px"}} >{this.usersList()}</div>
+                  <br /> 
                   
                   <div className = "container text-center border border-light p-9">
                  
                 <table className = "table">
-                {/* <thead className = "thead">
-                    <tr>
-                        <th>User Name</th>
-                        <th>Password</th>
-                        <th>type</th>
-                        <th>Address</th>
-                        
-                    </tr>
-                </thead> */}
+               
                 <tbody>
-                    
-                    {/* {this.itemsList()} */}
+        
                    
                 </tbody>
                 <thead className = "thead">
@@ -221,7 +226,7 @@ itemsList() {
                         <th>category</th>
                         <th>Phone</th>
                         <th>description</th>
-                        
+                        <th>image</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -238,7 +243,7 @@ itemsList() {
                            
                     <Footer />
                   </div>
-                    
+                  </div>  
                 )
               }
             }

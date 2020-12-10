@@ -5,61 +5,59 @@ const verfiy = require('./verifyToken')
 const { requireAuth } = require('./verifyToken')
 //AddItems is the schema
 //CRUD Operations:   (create -read-update-delete)
-// 
-//GET all items   retreva all the data and the schema structure from the mongoo db by .find method 
+//
+//GET all items   retreva all the data and the schema structure from the mongoo db by .find method
 router.route('/').get( (req, res) => {
-  AddItems.find() 
+  AddItems.find()
   .then(items => res.json(items))
   .catch(err => res.status(400).json('Error: ' + err));
-  
 });
-
 //POST(CREATE) new item
-// in side the post request i will create items and i get the data from request.body --> . the name of the attribute in the schema 
+// in side the post request i will create items and i get the data from request.body --> . the name of the attribute in the schema
 router.route('/add').post((req, res) => {
   const userName = req.body.userName;
   const itemName = req.body.itemName;
   const category = req.body.category;
-  const description = req.body.description;
-  // const image=req.body.image; 
   const type = req.body.type;
-
-
+  const description = req.body.description;
+  const image=req.body.image;
+  const phonenumber =req.body.phonenumber;
+ console.log(image+"wooow")
   const newItem = new AddItems ({
     userName,
     itemName,
     category,
+    type,
     description,
     image,
-    type
+    phonenumber,
   });
-    // saving the new item in the data base by .save method 
+    // saving the new item in the data base by .save method
   newItem.save()
   .then(() => res.json("Item Added!"))
   .catch(err => res.status(400).json("Error: " + err));
 });
-
 //GET item by ID  becouse i want to delete and update this items  /we will use find by id method and how ? by get the id by (req.params.id)
 router.route("/:id").get((req, res) => {
   AddItems.findById(req.params.id)
   .then(items => res.json(items))
   .catch(err => res.status(400).json("Error: " + err));
 });
-
 //DELETE item by ID
 router.route("/:id").delete((req, res) => {
   AddItems.findByIdAndDelete(req.params.id)
   .then(() => res.json('Item is deleted!'))
   .catch(err => res.status(400).json("Error: " + err));
 });
-
 //UPDATE item by ID
 router.route("/update/:id", ).post((req, res) => {
   AddItems.findById(req.params.id)
   .then(items => {
+
     items.itemName = req.body.itemName;
     items.category = req.body.category;
     items.description = req.body.description;
+
     items.type = req.body.type;
     items.image = req.body.image;
     items.save()
@@ -68,6 +66,6 @@ router.route("/update/:id", ).post((req, res) => {
   })
     .catch(err => res.status(400).json('Error: ' + err));
 })
-
-
 module.exports = router;
+
+

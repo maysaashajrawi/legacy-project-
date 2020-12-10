@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import axios from "axios";
 import { storage } from "./firebase.js";
 import Footer from './Footer';
+import Navbar_login from "./Navbar_Login"
 
 
 export default class Edituser extends Component {
@@ -14,7 +15,7 @@ export default class Edituser extends Component {
       this.onChangePhone= this.onChangePhone.bind(this);
       this.onChangeAddress= this.onChangeAddress.bind(this);
 
-
+      this.onChangeimg = this.handleChangeImage.bind(this);
       this.onSubmit = this.onSubmit.bind(this);
      
   
@@ -79,6 +80,7 @@ handleUpload () {
               password: response.data.password,
               phone: response.data.phone,
               address: response.data.address,
+              image: response.data.image,
             })  
     
           })
@@ -122,6 +124,7 @@ handleUpload () {
       password: this.state.password,
       phone: this.state.phone,
       address:this.state.address,
+      image:this.state.url
     }
 
     console.log(user);
@@ -139,6 +142,7 @@ axios.post("http://localhost:3000/addUser/update/"+this.props.match.params.id, u
     return (
 
       <div>
+        <Navbar_login/>
         <br />
         <div className = "container text-center">
         <form className="text-center border border-light p-9" onSubmit={this.onSubmit}>

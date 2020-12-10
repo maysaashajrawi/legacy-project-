@@ -2,7 +2,7 @@ import React, { Component } from "react";
 import { Link ,withRouter } from "react-router-dom" ;
 import axios from "axios";
 import Footer from './Footer';
-
+import Navbar from "./Navbar"
 const ClothesItem = props => (
     <tr>
         <td>{props.item.itemName}</td>
@@ -10,10 +10,16 @@ const ClothesItem = props => (
         <td>{props.item.type}</td>
         <td>{props.item.description}</td>
         <td>
-        <img src= {props.item.image} width="200" height="200" class="w3-round" alt="Norway"/>
+        <img src= {props.item.image} className ="images-list" width="200" height="200"  class="w3-round" />
         </td>
         <td>
-            <button >  <a href="tel:+962 7 980 7680">Call </a> </button> 
+        <td>
+       contact the donar on this number {props.item.phonenumber}
+        </td>
+        <td>
+       
+        </td>
+            
             
       </td>
      
@@ -56,7 +62,7 @@ class ItemsList extends Component {
     itemsList() {
      
         let listedItems = (this.state.filteredItems.length > 0)? this.state.filteredItems : this.state.items;
-        
+        console.log(this.state.items)
 
         return listedItems.map(currentItem => {
             return <ClothesItem item = { currentItem } key = { currentItem._id }/>; 
@@ -102,7 +108,7 @@ class ItemsList extends Component {
                 var ty = e.target.value
                 let { items } = this.state
                 this.setState({
-                    Category:'',
+                   
                    type:ty
                 })
                
@@ -119,28 +125,31 @@ class ItemsList extends Component {
 
 
             }
+
+            Rest(){
+                 
+                   this.setState({
+                       filteredItems:0,
+                       Category:'',
+                       type:''
+                    
+                })
+   
+
+            }
         
 
     render() {
 
         return (
             <div>
+                <Navbar/>
             <br />
 
             <div className = "container text-center border border-light p-9">
                 <h2>Clothing</h2>
                 <input name="search" className="form-control" onChange={this.onSearch.bind(this)} value={this.state.SearchString}  placeholder="Search for item Name"/>
                 <table className = "table">
-                <thead className = "thead">
-                    <tr>
-                        <th>Item Name</th>
-                        <th>Category</th>
-                        <th>Type</th>
-                        <th>Description</th>
-                        <th>Image</th>
-                        
-                    </tr>
-                </thead>
 
                 <thead className = "thead">
                     <tr>
@@ -157,7 +166,7 @@ class ItemsList extends Component {
                     <option value = "Men">Men</option>
                     <option value = "Kids">Kids</option>
                   </select>
-</th>
+                        </th>
                         <th>Description</th>
                         <th> <select
                     ref = "userInput"
@@ -175,16 +184,29 @@ class ItemsList extends Component {
                     <option value = "Hat">Hat</option>
                     <option value = "Scarf">Scarf</option>
 
-                  </select></th>
-                        
-                   
+                  </select>
+                  </th> 
+                  <th>
+                  <button onClick={this.Rest.bind(this)}> Rest </button>
+                  </th>
                         
                     </tr>
                 </thead>
 
 
-               
-               
+
+
+                <thead className = "thead">
+                    <tr>
+                        <th>Item Name</th>
+                        <th>Category</th>
+                        <th>Type</th>
+                        <th>Description</th>
+                        <th>Image</th>
+                        <th>call</th>
+                        
+                    </tr>
+                </thead>
                 <tbody>
                     {this.itemsList()}
                 </tbody>

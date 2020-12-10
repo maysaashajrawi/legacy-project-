@@ -3,29 +3,30 @@ import axios from "axios";
 import { withRouter } from "react-router-dom" ;
 import Footer from './Footer';
 import { storage } from "./firebase.js";
-
+import Navbar_Login from "./Navbar_Login"
 
  class AddItems extends Component {
   constructor(props) {
-    super(props);
+    super(props)
 
     //Defining the "this" in the functions using .bind method
     this.onChangeItemName = this.onChangeItemName.bind(this);
     this.onChangeCategory = this.onChangeCategory.bind(this);
     this.onChangeDescription = this.onChangeDescription.bind(this);
+    this.handleChangeImage = this.handleChangeImage.bind(this);
+    this.onChangetype = this.onChangetype.bind(this);
     this.onSubmit = this.onSubmit.bind(this);
     
-    this.onChangetype = this.onChangetype.bind(this);
-
     this.state = {
       itemName: "",
       category : "Women",
       description: "",
-       type:"Jacket",
+      type:"Jacket",
       image:null,
       url :'',
       progress:0,
-      phone:''
+      phone:'',
+      
 
     }
   }
@@ -33,26 +34,23 @@ import { storage } from "./firebase.js";
 //mount the user data so we add the username and phone number
 
 componentDidMount() {
-  
-  axios.get("http://localhost:3000/addUser/login")
-  .then(response =>{
-// console.log (response)
-// console.log(response.user.data)
-
- this.setState({ phone:response.data.user.phone
-
- })
-
-// location = '/AddItems'
-  })
-  .catch(err =>alert("username or password is incorrect") );         
+  axios.get("http://localhost:3000/addUser/")   
+     .then( res => {
+        //  this.setState({phone :res.data.phone})
+       var phones=0
+        for (var i = 0 ; i< res.data.length;i++){
+          if (res.data[i].username=== localStorage.getItem('username')){
+            phones=res.data[i].phone
+          }
+              
+        }
+        this.setState({phone: phones})
+       
+     })
+     .catch((error) => {
+         console.log(error);
+     })
 }
-    
-
-
-
-
-
 
   //List of category
   //Event Handlers:
@@ -60,7 +58,7 @@ componentDidMount() {
     this.setState({
       itemName: e.target.value
     });
-    console.log(this.state.phone)
+
   }
 
   onChangeCategory(e) {
@@ -91,44 +89,48 @@ componentDidMount() {
     }
   
 }
-  // it handles the upload of the picture in the firbase
-  handleUpload () {
-    var uploadTask = storage.ref(`images/${this.state.image.name}`).put(this.state.image);
-      uploadTask.on(
-        "state_changed",
-        snapshot => {
-          var progress = Math.round(
-            (snapshot.bytesTransferred / snapshot.totalBytes) * 100
+ // it handles the upload of the picture in the firbase
+ handleUpload (e) {
+  e.preventDefault();
+  var uploadTask = storage.ref(`images/${this.state.image.name}`).put(this.state.image);
+    uploadTask.on(
+      "state_changed",
+      snapshot => {
+        var progress = Math.round(
+          (snapshot.bytesTransferred / snapshot.totalBytes) * 100
+        );
+        this.setState({
+          progress:progress})
+        },
+        error => {
+        console.log(error);
+       },
+        () => {
+          storage
+          .ref("images")
+          .child(this.state.image.name)
+          .getDownloadURL()
+          .then(url => {
+            this.setState({
+              url : url
+          })
+          });
+          }
           );
-          this.setState({
-            progress:progress})
-          },
-          error => {
-          console.log(error);
-         },
-          () => {
-            storage
-            .ref("images")
-            .child(this.state.image.name)
-            .getDownloadURL()
-            .then(url => {
-              this.setState({
-                url : url
-            })
-            });
-            }
-            );
-         }
+       }
 
   onSubmit(e) {
+
     e.preventDefault();
     const item = {
       userName:localStorage.getItem('username'),
       itemName: this.state.itemName,
       category: this.state.category,
+      phonenumber:this.state.phone,
       description: this.state.description,
       type:this.state.type,
-      
+      image: this.state.url,
+
     }
 
     console.log(item);
@@ -136,16 +138,17 @@ componentDidMount() {
     axios.post("http://localhost:3000/addItems/add", item)
       .then(res => console.log(res.data));
 
-   // window.location = '/ItemsList'
+    window.location = '/ItemsList2'
   }
 
   render() {
     return (
       <div>
+        <Navbar_Login/>
         <br />
         <div className = "container">
        
-          <form className="text-center border border-light p-9" action="#!" onSubmit = {this.onSubmit} >
+          <form className="text-center border border-light p-9" action="#!"  >
 
             <h3> "Only by giving are you able to receive more than you already have." -Jim Rohn </h3>
 
@@ -219,8 +222,8 @@ componentDidMount() {
                 
                 <div className = "col">
                             <label>Image</label>
-                           <div  id='image' > <img src={this.state.url || "http://via.placeholder.com/50 50"} 
-                            alt="firebase"  /></div> 
+                           <div  id='image' > <img src={this.state.url || "http://via.placeholder.com/50*50"} 
+                              /></div> 
                            <input  type="file" onChange={this.handleChangeImage.bind(this)} className="btn btn-deep-orange darken-4" />
                            <button  onClick={this.handleUpload.bind(this)} className="btn btn-deep-orange darken-4">Upload</button>
                            </div>
@@ -228,7 +231,7 @@ componentDidMount() {
                   <br />
 
                 <div>
-                <button type="submit" value = "Submit" className="btn btn-deep-orange darken-4">Submit</button>
+                <button type="submit" onClick= {this.onSubmit} className="btn btn-deep-orange darken-4">Submit</button>
                 </div>
 
           </form>

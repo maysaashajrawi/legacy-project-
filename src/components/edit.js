@@ -13,7 +13,7 @@ export default class EditItems extends Component {
     this.onChangeCategory = this.onChangeCategory.bind(this);
     this.onChangeDescription = this.onChangeDescription.bind(this);
     this.onSubmit = this.onSubmit.bind(this);
-    this.onChangeimg = this.onChangeimg.bind(this);
+    this.onChangeimg = this.handleChangeImage.bind(this);
     this.onChangetype = this.onChangetype.bind(this);
 
     this.state = {
@@ -73,7 +73,6 @@ handleUpload () {
   componentDidMount() {
     axios.get('http://localhost:3000/addItems/'+this.props.match.params.id)
 
-    
       .then(response => {
         this.setState({
           itemName: response.data.itemName,
@@ -115,11 +114,7 @@ handleUpload () {
       description: e.target.value
     });
   }
-  onChangeimg(e) {
-    this.setState({
-      image : e.target.value
-    });
-  }
+  
 
   onSubmit(e) {
     e.preventDefault();
@@ -128,7 +123,7 @@ handleUpload () {
       category: this.state.category,
       description: this.state.description,
       type:this.state.type,
-      image:this.state.image
+      image:this.state.url
     }
 
     console.log(item);
