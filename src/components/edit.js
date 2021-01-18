@@ -78,7 +78,7 @@ handleUpload () {
           itemName: response.data.itemName,
           category: response.data.category,
           description: response.data.description,
-          image: response.data.image,
+          url: response.data.image,
           type: response.data.type,
         })  
 
@@ -128,17 +128,17 @@ handleUpload () {
 
     console.log(item);
 
-    axios.post("http://localhost:3000/addItems/update/"+this.props.match.params.id, item)
+    axios.put("http://localhost:3000/addItems/update/"+this.props.match.params.id, item)
       .then(res => console.log(res.data));
 
-    window.location = '/ItemsList'
+      window.location = '/Profile'
   }
 
   render() {
     return (
         <div className = "container">
 
-          <form className="text-center border border-light p-5" action="#!" onSubmit = {this.onSubmit}>
+          <form className="text-center border border-light p-5" action="#!">
 
             <h3> "Only by giving are you able to receive more than you already have." -Jim Rohn </h3>
 
@@ -205,6 +205,7 @@ handleUpload () {
                 </div>
 
                 <br />
+               
                 <div className = "col">
                             <label>Image</label>
                            <div  id='image' > <img src={this.state.url || "http://via.placeholder.com/50 50"} 
@@ -217,10 +218,10 @@ handleUpload () {
         
 
                 <div>
-                <button type="submit" value = "Submit" className="btn btn-dark">Edit</button>
+                <button onClick= {this.onSubmit}  className="btn btn-deep-orange darken-4">Edit</button>
                 </div>
-
-        </form>
+                </form>
+     
         </div>
         
     )

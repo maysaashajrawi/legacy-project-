@@ -11,7 +11,7 @@ export default class Edituser extends Component {
   
       //Defining the "this" in the functions using .bind method
       this.onChangeUsername = this.onChangeUsername.bind(this);
-      this.onChangePassword = this.onChangePassword.bind(this);
+     
       this.onChangePhone= this.onChangePhone.bind(this);
       this.onChangeAddress= this.onChangeAddress.bind(this);
 
@@ -30,6 +30,9 @@ export default class Edituser extends Component {
       
       }
     }
+
+
+
     // it addes the values of the input fileds in the states
   handleChangeImage(e) {
     if (e.target.files[0]) {
@@ -80,7 +83,7 @@ handleUpload () {
               password: response.data.password,
               phone: response.data.phone,
               address: response.data.address,
-              image: response.data.image,
+              url: response.data.image,
             })  
     
           })
@@ -98,11 +101,6 @@ handleUpload () {
     });
   }
 
-  onChangePassword(e) {
-    this.setState({
-      password : e.target.value
-    });
-  }
   
   onChangePhone(e) {
     this.setState({
@@ -121,20 +119,18 @@ handleUpload () {
     e.preventDefault();   
     const user= {
       username: this.state.username,
-      password: this.state.password,
-      phone: this.state.phone,
+    phone: this.state.phone,
       address:this.state.address,
       image:this.state.url
+    
     }
 
     console.log(user);
 
-
-
-axios.post("http://localhost:3000/addUser/update/"+this.props.match.params.id, user)
+axios.put("http://localhost:3000/addUser/update/"+this.props.match.params.id, user)
       .then(res => console.log(res.data));
 
-    window.location = '/ItemsList'
+      window.location = '/Profile'
   }
 
 
@@ -145,7 +141,7 @@ axios.post("http://localhost:3000/addUser/update/"+this.props.match.params.id, u
         <Navbar_login/>
         <br />
         <div className = "container text-center">
-        <form className="text-center border border-light p-9" onSubmit={this.onSubmit}>
+        <form className="text-center border border-light p-9" >
             <h3 className = "mb-3">
             Edit user information 
             </h3>
@@ -160,12 +156,7 @@ axios.post("http://localhost:3000/addUser/update/"+this.props.match.params.id, u
 
 
 
-            <div className = "col">
-            <label > New Password </label>
-            <br></br>
-            <input required='true'  type="password" name="password" className="form-control col"value= {this.state.password} onChange={this.onChangePassword} placeholder='Creat Password' />
-            <br></br>
-            </div>
+            
 
             <div className = "col">
             <label >  New Phone Number </label>
@@ -180,15 +171,25 @@ axios.post("http://localhost:3000/addUser/update/"+this.props.match.params.id, u
             <input required='true' type='text' className="form-control col" value= {this.state.address} onChange={this.onChangeAddress} placeholder='Address' />
             <br></br>
             </div>
-            
+          
+                           <br></br>
 
-            <input type='submit' value='Edit Account' className="btn btn-deep-orange darken-4"/>
+           
             <br></br>
             <br></br>
-          <a href='/ItemsList'> Save </a>
+        
             <br></br>
+       
+        <div className = "col">
+                            <label>Image</label>
+                           <div  id='image' > <img src={this.state.url|| "http://via.placeholder.com/50*50"} 
+                              /></div> 
+                           <input  type="file" onChange={this.handleChangeImage.bind(this)} className="btn btn-deep-orange darken-4" />
+                           <button  onClick={this.handleUpload.bind(this)} className="btn btn-deep-orange darken-4">Upload</button>
+                           </div>
+        <button onClick={this.onSubmit} className="btn btn-deep-orange darken-4"  > edit account</button>
+       
         </form>
-   
         </div>
         <Footer />
         </div>

@@ -7,21 +7,18 @@ import Navbar_Login from "./Navbar_Login";
 import { Navbar } from 'react-bootstrap';
     const Profileuser= props => (
   <tr  >
-    <div style={{marginTop:"30px",marginLeft:"450px",fontSize:"1.5rem" , fontFamily:"  serif"}}>
+    <div  class="border border-top-0" style={{marginTop:"30px",marginLeft:"400px",fontSize:"1.5rem" , fontFamily:"  serif", width:'500px', height:'300px'}}>
       <div>Hello our great donar </div>
-     <div>{props.user.username}</div>
+     <div>username: {props.user.username}</div>
      
-     <div>{props.user.phone}</div>
-     <div>{props.user.address}</div>
-    <img src= {props.user.image} width='50' height='50'/>
+     <div>phonenumber: {props.user.phone}</div>
+     <div>address: {props.user.address}</div>
+    <img src= {props.user.image} width='150' height='150'/>
 
      </div>
-      <div  style={{marginLeft:"450px"}}  >
-      <Link to ={"/edituser/"+props.user._id}  class="btn btn-success" >Edit User</Link>
-      <button type = "button" 
-     class="btn btn-danger"
-      onClick = {() => {props.deleteUser(props.user._id)}}> Delete User
-      </button>
+      <div  style={{marginLeft:"400px"}}  >
+      <Link to ={"/edituser/"+props.user._id} style={{marginTop:"30px", fontFamily:"  serif"}}  className="btn btn-deep-orange darken-4" >Edit User</Link>
+     
     </div>
   </tr>
 )
@@ -36,8 +33,7 @@ const Profileitems= props => (
       <td>{props.item.description}</td>
       <img src= {props.item.image} width='50' height='50'/>
     
-      {/* <img src= {props.user.image} width="200" height="200" class="w3-round" alt="Norway"/> */}
-      {/* <img src={props.user.url || "http://via.placeholder.com/50 50"} alt="firebase-image" width="200" height="200" class="w3-round"   /> */}
+      
       
        <td> 
       <Link to ={"/edit/"+props.item._id} className="btn btn-deep-orange darken-4" >Edit item</Link>
@@ -109,10 +105,8 @@ class Personalprofile extends React.Component {
 deleteItem(id) {
   axios.delete("http://localhost:3000/addItems/" + id)
       .then(res => console.log(res.data));
-  this.setState({
-      items: this.state.items.filter(el => el._id !== id)
-  })
-  window.location = '/profile'
+ 
+  window.location = '/Profile'
 }
 
 
@@ -133,23 +127,6 @@ itemsList() {
     return <Profileitems item= { currentItem } deleteItem= { this.deleteItem} key = { currentItem._id }/>; 
   })
 } 
-
-
-
-// usersList() {
-//   let listedusers = (this.st
-//     ate.Data.length >0)? this.state.data :this.state.users;
-
-//   return listedusers.filter(elet => localStorage.getItem('username')=== elet.username).map((ele,index) =>{
-//     return <Profileuser user= { ele.username}  deleteUser = { this.deleteUser} key = { ele._id }  address = { ele.address} phone = { ele.phone }/>; 
-//   })
-  
-// } 
-
-
-
-
-
 
 
 
@@ -199,45 +176,48 @@ itemsList() {
                   <Navbar_Login/>
                   <div className="text-center"  style = {{ margin:"0 auto" , marginBottom:"100px"}} > <div className = "col"   >
                            
-                            {/* <div > <img src={this.state.url || "http://via.placeholder.com/50*50"} 
-                          className="rounded"  width="304" height="236"/> */}
-                          </div> 
-                            
-                           {/* <input  type="file" onChange={this.handleChangeImage.bind(this)} className="btn btn-deep-orange darken-4" />
-                           <button  onClick={this.handleUpload.bind(this)} className="btn btn-deep-orange darken-4">Upload</button> */}
                           
-                           {/* </div> */}
+                        
+                        
                          
 
-                           <div  className="text-center"  style = {{ margin:"0 auto;" , marginBottom:"100px"}} >{this.usersList()}</div>
-                  <br /> 
+                           <div  className="text-center"  style = {{ margin:"0 auto;" , marginBottom:"100px"}} >{this.usersList()}
+                           
+                           
+                           
+                           <table className = "table">
+               
+               <tbody>
+       
+                  
+               </tbody>
+               <thead className = "thead">
+                   <tr>
+                       <th>itemName</th>
+                       <th>category</th>
+                       <th>Phone</th>
+                       <th>description</th>
+                       <th>image</th>
+                   </tr>
+               </thead>
+               <tbody>
+                 
+                   {this.itemsList()}
+                  
+               </tbody>
+               
+
+              </table>
+                           
+                           
+                           
+                           </div>
+             
                   
                   <div className = "container text-center border border-light p-9">
                  
-                <table className = "table">
                
-                <tbody>
-        
-                   
-                </tbody>
-                <thead className = "thead">
-                    <tr>
-                        <th>itemName</th>
-                        <th>category</th>
-                        <th>Phone</th>
-                        <th>description</th>
-                        <th>image</th>
-                    </tr>
-                </thead>
-                <tbody>
-                  
-                    {this.itemsList()}
-                   
-                </tbody>
-                
-
-               </table>
-
+               </div> 
                </div>
                             <br />
                            
