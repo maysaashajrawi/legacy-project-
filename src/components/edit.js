@@ -13,7 +13,7 @@ export default class EditItems extends Component {
     this.onChangeCategory = this.onChangeCategory.bind(this);
     this.onChangeDescription = this.onChangeDescription.bind(this);
     this.onSubmit = this.onSubmit.bind(this);
-    this.onChangeimg = this.onChangeimg.bind(this);
+    this.onChangeimg = this.handleChangeImage.bind(this);
     this.onChangetype = this.onChangetype.bind(this);
 
     this.state = {
@@ -73,13 +73,12 @@ handleUpload () {
   componentDidMount() {
     axios.get('http://localhost:3000/addItems/'+this.props.match.params.id)
 
-    
       .then(response => {
         this.setState({
           itemName: response.data.itemName,
           category: response.data.category,
           description: response.data.description,
-          image: response.data.image,
+          url: response.data.image,
           type: response.data.type,
         })  
 
@@ -115,11 +114,7 @@ handleUpload () {
       description: e.target.value
     });
   }
-  onChangeimg(e) {
-    this.setState({
-      image : e.target.value
-    });
-  }
+  
 
   onSubmit(e) {
     e.preventDefault();
@@ -128,22 +123,22 @@ handleUpload () {
       category: this.state.category,
       description: this.state.description,
       type:this.state.type,
-      image:this.state.image
+      image:this.state.url
     }
 
     console.log(item);
 
-    axios.post("http://localhost:3000/addItems/update/"+this.props.match.params.id, item)
+    axios.put("http://localhost:3000/addItems/update/"+this.props.match.params.id, item)
       .then(res => console.log(res.data));
 
-    window.location = '/ItemsList'
+      window.location = '/Profile'
   }
 
   render() {
     return (
         <div className = "container">
 
-          <form className="text-center border border-light p-5" action="#!" onSubmit = {this.onSubmit}>
+          <form className="text-center border border-light p-5" action="#!">
 
             <h3> "Only by giving are you able to receive more than you already have." -Jim Rohn </h3>
 
@@ -210,6 +205,7 @@ handleUpload () {
                 </div>
 
                 <br />
+               
                 <div className = "col">
                             <label>Image</label>
                            <div  id='image' > <img src={this.state.url || "http://via.placeholder.com/50 50"} 
@@ -222,10 +218,10 @@ handleUpload () {
         
 
                 <div>
-                <button type="submit" value = "Submit" className="btn btn-dark">Edit</button>
+                <button onClick= {this.onSubmit}  className="btn btn-deep-orange darken-4">Edit</button>
                 </div>
-
-        </form>
+                </form>
+     
         </div>
         
     )

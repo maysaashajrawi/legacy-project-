@@ -5,7 +5,6 @@ import 'mdbreact/dist/css/mdb.css';
 import PrivateRoute from './components/PrivateRoute';
 import './App.css';
 import Homepage from './components/Homepage';
-import Navbar from './components/Navbar';
 import AddItems from './components/AddItems';
 import ItemsList from './components/ItemsList';
 import Login from './components/Login';
@@ -14,6 +13,7 @@ import EditItems from './components/edit';
 import Homepage2 from "./components/Homepage2.js";
 import Counter from "./components/Counter.js";
 import Edituser from "./components/edituser";
+import ItemsList2 from './components/ItemsList2';
 
 import "bootstrap/dist/css/bootstrap.min.css";
 import "mdbreact/dist/css/mdb.css";
@@ -35,7 +35,8 @@ function App() {
         <PrivateRoute path="/edit/:id" component={EditItems} />
         <PrivateRoute path="/logout" component={Login} />
         <Route path="/Counter" component={Counter} />
-
+        <PrivateRoute path="/ItemsList2" component={ItemsList2} />
+        <Route path="/" exact component={Homepage} />
       </div>
     </Router>
   );

@@ -2,6 +2,7 @@ import React, { Component } from "react";
 import { Link } from "react-router-dom";
 // import "font-awesome/css/font-awesome.min.css";
 // import AddItems from "./AddItems";
+import Counter from './Counter'
 
 export default class Navbar extends Component {
   constructor(props) {
@@ -34,7 +35,7 @@ export default class Navbar extends Component {
               </li> */}
               <li className="navbar-item">
                 <Link to="/ItemsList" className="nav-link">
-                  Clothes
+                  donated items
                 </Link>
               </li>
               <li className="navbar-item">
@@ -50,13 +51,12 @@ export default class Navbar extends Component {
             </ul>
 
             <a>
-              <i
-                class="fa fa-heart"
-                aria-hidden="true"
-                onClick={this.increment}
-              >
-                <h3>{this.state.counter}</h3>
+              <i class="fa fa-heart" aria-hidden="true" style = {{color: "white"}} >
+
+                <Counter />
+                Donated items and still counting ! !
               </i>
+             
             </a>
           </div>
         </nav>

@@ -65,11 +65,10 @@ router.route("/:id").delete((req, res) => {
   .catch(err => res.status(400).json("Error: " + err));
 })
 //UPDATE user by ID
-router.route("/update/:id", ).post((req, res) => {
+router.route("/update/:id", ).put((req, res) => {
   AddUser.findById(req.params.id)
   .then(users => {
-    users.username = req.body.username;
-    users.password= req.body.password;
+  
     users.phone = req.body.phone;
     users.address= req.body.address;
     users.image= req.body.image;

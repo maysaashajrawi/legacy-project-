@@ -3,7 +3,7 @@ import axios from "axios";
 import { withRouter } from "react-router-dom" ;
 import Footer from './Footer';
 import { storage } from "./firebase.js";
-import Navbar_Login from "./Navbar_Login"
+import NavbarLogin from "./NavbarLogin"
 
  class AddItems extends Component {
   constructor(props) {
@@ -90,7 +90,8 @@ componentDidMount() {
   
 }
  // it handles the upload of the picture in the firbase
- handleUpload () {
+ handleUpload (e) {
+  e.preventDefault();
   var uploadTask = storage.ref(`images/${this.state.image.name}`).put(this.state.image);
     uploadTask.on(
       "state_changed",
@@ -137,13 +138,13 @@ componentDidMount() {
     axios.post("http://localhost:3000/addItems/add", item)
       .then(res => console.log(res.data));
 
-    // window.location = '/ItemsList'
+    window.location = '/ItemsList2'
   }
 
   render() {
     return (
       <div>
-        <Navbar_Login/>
+        <NavbarLogin/>
         <br />
         <div className = "container">
        
@@ -222,7 +223,7 @@ componentDidMount() {
                 <div className = "col">
                             <label>Image</label>
                            <div  id='image' > <img src={this.state.url || "http://via.placeholder.com/50*50"} 
-                            alt="firebase"  /></div> 
+                              /></div> 
                            <input  type="file" onChange={this.handleChangeImage.bind(this)} className="btn btn-deep-orange darken-4" />
                            <button  onClick={this.handleUpload.bind(this)} className="btn btn-deep-orange darken-4">Upload</button>
                            </div>

@@ -2,13 +2,13 @@ import React, { Component } from "react";
 import Slideshow from "./Carousel";
 import Cards from "./Cards";
 import { MDBContainer, MDBFooter } from "mdbreact";
-import Navbar_Login from "./Navbar_Login";
+import NavbarLogin from "./NavbarLogin";
 
 export default class Homepage2 extends Component {
   render() {
     return (
       <div className="bg-dark justify-content-between">
-        <Navbar_Login />
+        <NavbarLogin />
         <br />
         <Slideshow />
         <br />

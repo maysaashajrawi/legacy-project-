@@ -38,7 +38,7 @@ export default class Login extends Component {
           localStorage.setItem('username', response.data.user.username);
           if(localStorage.getItem('user-tooken' , response.data.token)){
             console.log(localStorage.getItem('user-tooken'))
-            window.location = '/AddItems';
+            window.location = '/homepage2';
             }
           })
         .catch(err => 

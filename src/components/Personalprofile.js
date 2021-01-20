@@ -1,26 +1,54 @@
-import React, { Component } from 'react';
+import React from 'react';
 import { storage } from "./firebase.js";
 import axios from "axios";
 import {  Link,withRouter } from "react-router-dom" ;
 import Footer from './Footer';
-import Navbar_Login from "./Navbar_Login";
-import { Navbar } from 'react-bootstrap';
-const Profileuser= props => (
-  <tr  >
-    <div style={{marginTop:"30px",marginLeft:"450px",fontSize:"1.5rem" , fontFamily:"  serif"}}>
-     <div>{props.user.username}</div>
+import NavbarLogin from "./NavbarLogin"
+    const Profileuser= props => (
+  // <tr  >
+  
+   <div className = "user-profile">
+    <div  className="container" >
+      <div id="user-pro">
+      <div className = "row">
+        
+        <div className = "col-md-4 col-sm-4 col-xs-12 " > <div style={{width:"220px" ,height:"220px"}} ><img src= {props.user.image} className = "img-responsive"/></div></div>
+        <div className = "col-md-8 col-sm-4 col-xs-12">
+         {/* <div>Hello our great donar </div>  */}
+         <div className="name-class">
+              <div className="na-1 col-md-4"><i class="icon-user"></i> <label>User Name:</label></div>
+              <div className="na-1 col-md-4 name">{props.user.username}</div>
+        </div>
+         {/* <div>{props.user}</div> */}
+         <div className="phone">
+            <div className="ph col-md-4"><i className="icon-phone icon-large"></i>   <label> Phone:</label></div>
+            <div className="ph col-md-4">{props.user.phone}</div>
+         </div>
+         <div className="address">
+            <div className="add col-md-4"><i className="icon-map-marker icon-large"></i> <label>Address:</label></div>
+            <div className="add col-md-4">{props.user.address}</div>
+         </div>
+         <div  style={{textAlign:"left"}} >
+            <Link to ={"/edituser/"+props.user._id} style={{marginTop:"30px", fontFamily:"  serif" , background: "#d64949" }}  className="btn btn-deep-orange darken-4" >Edit User</Link>
+          
+          </div>
+                   </div>
+
      
-     <div>{props.user.phone}</div>
-     <div>{props.user.address}</div>
-     </div>
-      <div  style={{marginLeft:"450px"}}  >
-      <Link to ={"/edituser/"+props.user._id}  class="btn btn-success" >Edit User</Link>
-      <button type = "button" 
-     class="btn btn-danger"
-      onClick = {() => {props.deleteUser(props.user._id)}}> Delete User
-      </button>
-    </div>
-  </tr>
+     
+     
+    
+    
+     
+
+        
+      </div>
+
+      </div>
+   
+      </div>
+  </div>
+  // </tr>
 )
 
 
@@ -31,11 +59,10 @@ const Profileitems= props => (
       <td>{props.item.category}</td>
       <td>{props.item.type}</td>
       <td>{props.item.description}</td>
-      <td>{props.item.image}</td>
-      <td>
-      {/* <img src= {props.user.image} width="200" height="200" class="w3-round" alt="Norway"/> */}
-      {/* <img src={props.user.url || "http://via.placeholder.com/50 50"} alt="firebase-image" width="200" height="200" class="w3-round"   /> */}
-       </td>
+      <img src= {props.item.image} width='50' height='50' alt="Profile-image"/>
+    
+      
+      
        <td> 
       <Link to ={"/edit/"+props.item._id} className="btn btn-deep-orange darken-4" >Edit item</Link>
       <button type = "button" 
@@ -98,15 +125,16 @@ class Personalprofile extends React.Component {
   this.setState({
       users: this.state.users.filter(el => el._id !== id)
   })
+  window.localStorage.clear()
+  window.location = '/'
 }
 
 
 deleteItem(id) {
   axios.delete("http://localhost:3000/addItems/" + id)
       .then(res => console.log(res.data));
-  this.setState({
-      items: this.state.items.filter(el => el._id !== id)
-  })
+ 
+  window.location = '/Profile'
 }
 
 
@@ -127,23 +155,6 @@ itemsList() {
     return <Profileitems item= { currentItem } deleteItem= { this.deleteItem} key = { currentItem._id }/>; 
   })
 } 
-
-
-
-// usersList() {
-//   let listedusers = (this.st
-//     ate.Data.length >0)? this.state.data :this.state.users;
-
-//   return listedusers.filter(elet => localStorage.getItem('username')=== elet.username).map((ele,index) =>{
-//     return <Profileuser user= { ele.username}  deleteUser = { this.deleteUser} key = { ele._id }  address = { ele.address} phone = { ele.phone }/>; 
-//   })
-  
-// } 
-
-
-
-
-
 
 
 
@@ -190,54 +201,48 @@ itemsList() {
                 return (
                   <div>
 
-                  <Navbar_Login/>
-                  <div className="text-center"  style = {{ margin:"0 auto" , marginBottom:"100px"}} > <div className = "col"   >
+                  <NavbarLogin/>
+                  <div className="text-center" > <div className = "col"   >
                            
-                           <div  id='image'> <img src={this.state.url || "http://via.placeholder.com/50 50"} 
-                            alt="firebase" className="rounded"  width="304" height="236"/></div> 
-                            
-                           <input  type="file" onChange={this.handleChangeImage.bind(this)} className="btn btn-deep-orange darken-4" />
-                           <button  onClick={this.handleUpload.bind(this)} className="btn btn-deep-orange darken-4">Upload</button>
                           
-                           </div>
-                           <div  className="text-center"  style = {{ margin:"0 auto;" , marginBottom:"100px"}} >{this.usersList()}</div>
-                  <br />
+                        
+                        
+                         
+
+                           <div  className="text-center">{this.usersList()}
+                           
+                           
+                           
+                           <table className = "table">
+               
+               <tbody>
+       
                   
-                  <div className = "container text-center border border-light p-9">
+               </tbody>
+               <thead className = "thead">
+                   <tr>
+                       <th>itemName</th>
+                       <th>category</th>
+                       <th>Phone</th>
+                       <th>description</th>
+                       <th>image</th>
+                   </tr>
+               </thead>
+               <tbody>
                  
-                <table className = "table">
-                {/* <thead className = "thead">
-                    <tr>
-                        <th>User Name</th>
-                        <th>Password</th>
-                        <th>type</th>
-                        <th>Address</th>
-                        
-                    </tr>
-                </thead> */}
-                <tbody>
-                    
-                    {/* {this.itemsList()} */}
-                   
-                </tbody>
-                <thead className = "thead">
-                    <tr>
-                        <th>itemName</th>
-                        <th>category</th>
-                        <th>Phone</th>
-                        <th>description</th>
-                        
-                    </tr>
-                </thead>
-                <tbody>
+                   {this.itemsList()}
                   
-                    {this.itemsList()}
+               </tbody>
+               
+
+              </table>
+                           
+                           
+                           
+                           </div>
+             
+                  
                    
-                </tbody>
-                
-
-               </table>
-
                </div>
                             <br />
                            

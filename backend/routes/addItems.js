@@ -50,13 +50,14 @@ router.route("/:id").delete((req, res) => {
   .catch(err => res.status(400).json("Error: " + err));
 });
 //UPDATE item by ID
-router.route("/update/:id", ).post((req, res) => {
+router.route("/update/:id", ).put((req, res) => {
   AddItems.findById(req.params.id)
   .then(items => {
 
     items.itemName = req.body.itemName;
     items.category = req.body.category;
     items.description = req.body.description;
+
     items.type = req.body.type;
     items.image = req.body.image;
     items.save()

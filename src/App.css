@@ -36,3 +36,51 @@
     transform: rotate(360deg);
   }
 }
+
+.images-list{
+  width:200px ;
+  height:200px
+}
+.user-profile{
+  padding: 20px;
+  margin: 20px;
+}
+
+.name{
+  text-transform: capitalize;
+  /* font-weight: bold; */
+}
+.name-class,.address,.phone{
+  text-align: left;
+  font-family: "Century Gothic";
+  padding-bottom: 31px;
+}
+/* .main{
+  text-align: left;
+} */
+.ph,.add,.na-1{
+  display: inline;
+  
+}
+label{
+  font-size: 20px;
+}
+
+
+#user-pro{
+  border: 1px solid #000;
+  border-radius: 26px;
+  padding: 30px;
+}
+.btn{
+  background: #000;
+}
+.img-pro{
+  border-radius: 20px;
+}
+input[type="file"] {
+  height: 58px;
+}
+input[type="text"]{
+  padding:20px
+}
