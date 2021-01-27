@@ -5,7 +5,6 @@ import 'mdbreact/dist/css/mdb.css';
 import PrivateRoute from './components/PrivateRoute';
 import './App.css';
 import Homepage from './components/Homepage';
-import Navbar from './components/Navbar';
 import AddItems from './components/AddItems';
 import ItemsList from './components/ItemsList';
 import Login from './components/Login';

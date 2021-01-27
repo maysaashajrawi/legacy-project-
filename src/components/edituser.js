@@ -2,7 +2,8 @@ import React, { Component } from 'react';
 import axios from "axios";
 import { storage } from "./firebase.js";
 import Footer from './Footer';
-import Navbar_login from "./Navbar_Login"
+// eslint-disable-next-line
+import Navbar_Login from "./Navbar_Login"
 
 
 export default class Edituser extends Component {
@@ -138,7 +139,7 @@ axios.put("http://localhost:3000/addUser/update/"+this.props.match.params.id, us
     return (
 
       <div>
-        <Navbar_login/>
+        <Navbar_Login />
         <br />
         <div className = "container text-center">
         <form className="text-center border border-light p-9" >
@@ -182,7 +183,8 @@ axios.put("http://localhost:3000/addUser/update/"+this.props.match.params.id, us
        
         <div className = "col">
                             <label>Image</label>
-                           <div  id='image' > <img src={this.state.url|| "http://via.placeholder.com/50*50"} 
+                            {/*  eslint-disable-next-line */}
+                           <div  id='image' > <img src={this.state.url|| "http://via.placeholder.com/50*50"} alt="profile"
                               /></div> 
                            <input  type="file" onChange={this.handleChangeImage.bind(this)} className="btn btn-deep-orange darken-4" />
                            <button  onClick={this.handleUpload.bind(this)} className="btn btn-deep-orange darken-4">Upload</button>

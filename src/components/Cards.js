@@ -7,14 +7,14 @@ export default class Cards extends Component {
             <div className = "container">
                 <CardDeck className = "text-center d-flex justify-content-between">
                 <Card>
-                    <Card.Img variant="top" src={process.env.PUBLIC_URL + "./Images/DonateNow.png"} rel="noopener noreferrer" />
+                    <Card.Img variant="top" src={process.env.PUBLIC_URL + "./Images/DonateNow.png"} rel="noopener noreferrer" alt="noopener noreferrer" />
                     <Card.Body>
                     <Card.Text>
                         Help us bring DAFAH to others by helping us achieve our goal and reach everyone across the country!
                         Your help on our quest is only a button away, so click below!
                         <b>Please note that you have to sign up, log in, and then add an item </b>
                     </Card.Text>                
-                    <button className = "btn btn-dark" 
+                    <button className = "btn btn-dark" style={{background: "#000"}} 
                     onClick =  {() =>{if (localStorage.length >= 1){
                         window.location = '/AddItems'
                       }
@@ -26,7 +26,7 @@ export default class Cards extends Component {
                     </Card.Footer>
                 </Card>
                 <Card>
-                    <Card.Img variant="top" src={process.env.PUBLIC_URL + "./Images/AboutUs.png"} rel="noopener noreferrer" />
+                    <Card.Img variant="top" src={process.env.PUBLIC_URL + "./Images/AboutUs.png"} rel="noopener noreferrer" alt="noopener noreferrer" />
                     <Card.Body>
                     <Card.Text>
                     DAFAH. A charity organization aimed towards creating a
@@ -40,7 +40,7 @@ export default class Cards extends Component {
                     </Card.Footer>
                 </Card>
                 <Card>
-                    <Card.Img variant="top" src={process.env.PUBLIC_URL + "./Images/Contributors.png"} rel="noopener noreferrer" />
+                    <Card.Img variant="top" src={process.env.PUBLIC_URL + "./Images/Contributors.png"} rel="noopener noreferrer" alt="noopener noreferrer"/>
                     <Card.Body>
                     <Card.Text>
                     Address

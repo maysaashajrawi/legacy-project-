@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import { Link ,withRouter } from "react-router-dom" ;
+import {  withRouter } from "react-router-dom" ;
 import axios from "axios";
 import Footer from './Footer';
 import Navbar from "./Navbar"
@@ -10,7 +10,7 @@ const ClothesItem = props => (
         <td>{props.item.type}</td>
         <td>{props.item.description}</td>
         <td>
-        <img src= {props.item.image} className ="images-list" width="200" height="200"  class="w3-round" />
+        <img src= {props.item.image} className ="images-list" width="200" height="200" alt="Image-Item"  class="w3-round" />
         </td>
         <td>
         <td>

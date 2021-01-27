@@ -1,26 +1,54 @@
-import React, { Component } from 'react';
+import React from 'react';
 import { storage } from "./firebase.js";
 import axios from "axios";
 import {  Link,withRouter } from "react-router-dom" ;
 import Footer from './Footer';
-import Navbar_Login from "./Navbar_Login";
-import { Navbar } from 'react-bootstrap';
+import Navbar_Login from "./Navbar_Login"
     const Profileuser= props => (
-  <tr  >
-    <div  class="border border-top-0" style={{marginTop:"30px",marginLeft:"400px",fontSize:"1.5rem" , fontFamily:"  serif", width:'500px', height:'300px'}}>
-      <div>Hello our great donar </div>
-     <div>username: {props.user.username}</div>
-     
-     <div>phonenumber: {props.user.phone}</div>
-     <div>address: {props.user.address}</div>
-    <img src= {props.user.image} width='150' height='150'/>
+  // <tr  >
+  
+   <div className = "user-profile">
+    <div  className="container" >
+      <div id="user-pro">
+      <div className = "row">
+        
+        <div className = "col-md-4 col-sm-4 col-xs-12 " > <div style={{width:"220px" ,height:"220px"}} ><img src= {props.user.image} className = "img-responsive"/></div></div>
+        <div className = "col-md-8 col-sm-4 col-xs-12">
+         {/* <div>Hello our great donar </div>  */}
+         <div className="name-class">
+              <div className="na-1 col-md-4"><i class="icon-user"></i> <label>User Name:</label></div>
+              <div className="na-1 col-md-4 name">{props.user.username}</div>
+        </div>
+         {/* <div>{props.user}</div> */}
+         <div className="phone">
+            <div className="ph col-md-4"><i className="icon-phone icon-large"></i>   <label> Phone:</label></div>
+            <div className="ph col-md-4">{props.user.phone}</div>
+         </div>
+         <div className="address">
+            <div className="add col-md-4"><i className="icon-map-marker icon-large"></i> <label>Address:</label></div>
+            <div className="add col-md-4">{props.user.address}</div>
+         </div>
+         <div  style={{textAlign:"left"}} >
+            <Link to ={"/edituser/"+props.user._id} style={{marginTop:"30px", fontFamily:"  serif" , background: "#d64949" }}  className="btn btn-deep-orange darken-4" >Edit User</Link>
+          
+          </div>
+                   </div>
 
-     </div>
-      <div  style={{marginLeft:"400px"}}  >
-      <Link to ={"/edituser/"+props.user._id} style={{marginTop:"30px", fontFamily:"  serif"}}  className="btn btn-deep-orange darken-4" >Edit User</Link>
      
-    </div>
-  </tr>
+     
+     
+    
+    
+     
+
+        
+      </div>
+
+      </div>
+   
+      </div>
+  </div>
+  // </tr>
 )
 
 
@@ -31,7 +59,7 @@ const Profileitems= props => (
       <td>{props.item.category}</td>
       <td>{props.item.type}</td>
       <td>{props.item.description}</td>
-      <img src= {props.item.image} width='50' height='50'/>
+      <img src= {props.item.image} width='50' height='50' alt="Profile-image"/>
     
       
       
@@ -174,14 +202,14 @@ itemsList() {
                   <div>
 
                   <Navbar_Login/>
-                  <div className="text-center"  style = {{ margin:"0 auto" , marginBottom:"100px"}} > <div className = "col"   >
+                  <div className="text-center" > <div className = "col"   >
                            
                           
                         
                         
                          
 
-                           <div  className="text-center"  style = {{ margin:"0 auto;" , marginBottom:"100px"}} >{this.usersList()}
+                           <div  className="text-center">{this.usersList()}
                            
                            
                            
@@ -214,10 +242,7 @@ itemsList() {
                            </div>
              
                   
-                  <div className = "container text-center border border-light p-9">
-                 
-               
-               </div> 
+                   
                </div>
                             <br />
                            

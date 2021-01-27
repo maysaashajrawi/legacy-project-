@@ -138,7 +138,8 @@ export default class Signup extends Component {
                 </div>
                 <div className = "col">
                             <label>Image</label>
-                           <div  id='image' > <img src={this.state.url || "http://via.placeholder.com/50*50"}
+                             //eslint-disable-next-line
+                           <div  id='image' > <img src={this.state.url || "http://via.placeholder.com/50*50"} alt="Profile Image"
                              /></div>
                            <input  type="file" onChange={this.handleChangeImage.bind(this)} className="btn btn-deep-orange darken-4" />
                            <button  onClick={this.handleUpload.bind(this)} className="btn btn-deep-orange darken-4">Upload</button>

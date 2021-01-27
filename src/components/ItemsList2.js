@@ -12,7 +12,7 @@ const ClothesItem = props => (
         <td>{props.item.type}</td>
         <td>{props.item.description}</td>
         <td>
-        <img src= {props.item.image} width="200" height="200" class="w3-round" className ="images-list" />
+        <img src= {props.item.image} width="200" height="200" class="w3-round" alt= "Image Item" className ="images-list" />
         </td>
         <td>
         <td>
