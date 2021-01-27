@@ -3,7 +3,7 @@ import axios from "axios";
 import { storage } from "./firebase.js";
 import Footer from './Footer';
 // eslint-disable-next-line
-import NavbarLogin from "./NavbarLogin"
+import Navbar_Login from "./Navbar_Login"
 
 
 export default class Edituser extends Component {
@@ -139,7 +139,7 @@ axios.put("http://localhost:3000/addUser/update/"+this.props.match.params.id, us
     return (
 
       <div>
-        <NavbarLogin />
+        <Navbar_Login />
         <br />
         <div className = "container text-center">
         <form className="text-center border border-light p-9" >

@@ -3,7 +3,7 @@ import { storage } from "./firebase.js";
 import axios from "axios";
 import {  Link,withRouter } from "react-router-dom" ;
 import Footer from './Footer';
-import NavbarLogin from "./NavbarLogin"
+import Navbar_Login from "./Navbar_Login"
     const Profileuser= props => (
   // <tr  >
   
@@ -201,7 +201,7 @@ itemsList() {
                 return (
                   <div>
 
-                  <NavbarLogin/>
+                  <Navbar_Login/>
                   <div className="text-center" > <div className = "col"   >
                            
                           

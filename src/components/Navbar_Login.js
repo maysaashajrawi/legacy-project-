@@ -2,7 +2,7 @@ import React, { Component } from "react";
 import { Link } from "react-router-dom";
 import Counter from './Counter'
 
-export default class NavbarLogin extends Component {
+export default class Navbar_Login extends Component {
   render() {
     return (
       <div>

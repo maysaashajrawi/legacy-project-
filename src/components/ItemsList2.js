@@ -3,7 +3,7 @@ import { Link ,withRouter } from "react-router-dom" ;
 import axios from "axios";
 import Footer from './Footer';
 
-import NavbarLogin from "./NavbarLogin";
+import Navbar_Login from "./Navbar_Login";
 
 const ClothesItem = props => (
     <tr>
@@ -145,7 +145,7 @@ class ItemsList extends Component {
 
         return (
             <div>
-                <NavbarLogin/>
+                <Navbar_Login/>
             <br />
 
             <div className = "container text-center border border-light p-9">

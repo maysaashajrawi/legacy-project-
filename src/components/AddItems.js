@@ -3,7 +3,7 @@ import axios from "axios";
 import { withRouter } from "react-router-dom" ;
 import Footer from './Footer';
 import { storage } from "./firebase.js";
-import NavbarLogin from "./NavbarLogin"
+import Navbar_Login from "./Navbar_Login"
 
  class AddItems extends Component {
   constructor(props) {
@@ -144,7 +144,7 @@ componentDidMount() {
   render() {
     return (
       <div>
-        <NavbarLogin/>
+        <Navbar_Login/>
         <br />
         <div className = "container">
        
