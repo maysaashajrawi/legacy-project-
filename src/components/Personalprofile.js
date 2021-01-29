@@ -254,20 +254,3 @@ itemsList() {
             }
             
             export default withRouter(Personalprofile)
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-

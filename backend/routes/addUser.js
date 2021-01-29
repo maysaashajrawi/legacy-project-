@@ -20,7 +20,7 @@ router.route('/').get((req, res) => {
   //hashing password
   //sorry it is a mass it is leterlly 2 am
   const salt = await bcrypt.genSalt(10)
-   const hashedPassword =  await bcrypt.hash(req.body.password, salt)
+  const hashedPassword =  await bcrypt.hash(req.body.password, salt)
   const phone = req.body.phone;
   const address = req.body.address;
   const image= req.body.image;
